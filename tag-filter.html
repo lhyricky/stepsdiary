@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>標籤篩選結果 - 慢步·遊日記</title>
+    <link rel="icon" type="image/x-icon" href="NAV/Favicon.png">
+    <link rel="stylesheet" href="css-for-all-pages.css">
+    <link rel="stylesheet" href="css-nav.css">
+    <link rel="stylesheet" href="css-footer.css">
+    <style>
+        .banner-of-the-top {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .banner {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin: 30px 0px;
+            color: #4A4A4A;
+        }
+
+        .yellow-line {
+            width: 100px;
+            height: 3px;
+            background-color: #FFD700; /* 黃色線 */
+            margin: 0 auto 40px; /* 置中 + 下面空間 */
+        }
+
+        .filter-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+         @media (max-width: 675px) {
+            .filter-content{
+                padding: 0px;
+            }
+         }
+
+        
+
+        .home-button {
+            background-color: #4adbed;
+            color: white;
+            padding: 12px 24px;
+            margin-bottom: 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .home-button:hover {
+            opacity: 0.8;
+        }
+
+        /* ==== blank-page 內部樣式 ==== */
+        
+        #currentTag {
+            color: #4adbed;
+            font-weight: bold;
+        }
+        
+        .post-item {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px auto;                /* 上下 25px，左右 auto 居中 */
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;           /* 重要！！！ */
+            overflow: hidden;
+        }
+        /* 手機窄屏時減少 padding 令佢更舒服 */
+        @media (max-width: 675px) {
+            .post-item {
+                padding: 20px;
+                margin: 20px 15px;        /* 左右留少少空位，避免貼邊太近 */
+                border-radius: 10px;
+            }
+            .post-picture {
+                height: 180px;
+            }
+        }
+
+        @media (min-width: 675px) {
+            .post-item {
+                min-width: 600px;
+            }
+        }
+        .post-item:hover {
+            
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .post-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+        }
+        .post-item h3 a {
+            color: #4adbed;
+            text-decoration: none;
+        }
+        .post-item h3 a:hover {
+            opacity: 0.8;
+        }
+
+        .post-meta {
+            color: #95a5a6;
+            font-size: 0.95em;
+            margin: 8px 0;
+        }
+        .post-tags .tag {
+            display: inline-block;
+            background: #f6f6f6;
+            color: black;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 4px 4px 0 0;
+        }
+        .no-result {
+            text-align: center;
+            padding: 80px 20px;
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #4adbed;
+            font-size: 1.1em;
+        }
+        .post-picture {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .post-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .post-item:hover .post-picture img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="nav-logo">
+            <a href="index.html"><img src="NAV/Favicon.png" alt="Favicon"></a>
+            <a href="index.html"><img src="NAV/慢步·遊日記.png" alt="漫步遊日記"></a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="About.html">關於</a></li>        
+        </ul>
+    </nav>
+
+    <div class="blank-page">
+        <div class="banner-of-the-top">
+            <img class="banner" src="NAV/My Website banner.png" alt="慢步·遊日記">
+        </div>
+
+        <div class="filter-content">
+            <h1>標籤：<span id="currentTag"></span> 的文章</h1>
+            <div class="yellow-line"></div>
+            <div id="postList">
+                <div class="loading">載入文章中，請稍候⋯</div>
+            </div>
+            <a href="index.html" class="home-button">回到首頁</a>
+        </div>
+
+        
+        
+        
+    </div>
+
+    <footer class="footer">
+        <div class="sns-icons">
+            <a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img src="Footer/Facebook.png" alt="Facebook" class="sns-icon"></a>
+            <a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img src="Footer/Instagram.webp" alt="Instagram" class="sns-icon"></a>
+        </div>
+        <div class="footer-text">
+            <p>Copyright © 2025 慢步·遊日記 版權所有。</p>
+        </div>
+    </footer>
+
+    <script>
+// 讀取 ?tag=XXX（順便 trim）
+const urlParams = new URLSearchParams(window.location.search);
+const tag = decodeURIComponent(urlParams.get('tag') || '').trim();
+
+document.getElementById('currentTag').textContent = tag || '未知標籤';
+
+if (!tag) {
+    document.getElementById('postList').innerHTML = '<div class="no-result">請提供標籤參數</div>';
+} else {
+    fetch('posts.json')
+        .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
+        .then(posts => {
+            // 關鍵：比對前全部 trim！永不中隱藏空格招
+            const filtered = posts.filter(p => 
+                p.tags && 
+                Array.isArray(p.tags) && 
+                p.tags.some(t => typeof t === 'string' && t.trim() === tag)
+            );
+
+            // 按日期排序
+            filtered.sort((a, b) => new Date(b.dayoftravel) - new Date(a.dayoftravel));
+
+            if (filtered.length === 0) {
+                document.getElementById('postList').innerHTML = `
+                    <div class="no-result">
+                        目前還沒有標記為「${tag}」的文章<br><br>
+                        <a href="index.html" class="home-button">回到首頁</a>
+                    </div>`;
+                return;
+            }
+
+            const html = filtered.map(post => `
+                <div class="post-item">
+                    ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
+                    <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
+                    <div class="post-meta">發布日期：${post.writedate || '未知'}</div>
+                    <div class="post-tags">
+                        ${Array.isArray(post.tags) ? post.tags.map(t => `<span class="tag">${t}</span>`).join('') : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('postList').innerHTML = html;
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById('postList').innerHTML = '<div class="no-result">載入失敗，請稍後再試</div>';
+        });
+}
+</script>
+</body>
+</html>

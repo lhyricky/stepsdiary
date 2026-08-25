@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我 - 慢步·遊日記</title>
+    <link rel="icon" type="image/x-icon" href="NAV/Favicon.png">
+    <link rel="stylesheet" href="css-for-all-pages.css">
+    <link rel="stylesheet" href="css-nav.css">
+    <link rel="stylesheet" href="css-footer.css">
+    <style>
+
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin: 30px 0px;
+            color: #4A4A4A;
+        }
+        p {
+            font-size: 20px;
+            line-height: 2;
+        }
+        .yellow-line {
+            width: 100px;
+            height: 3px;
+            background-color: #FFD700; /* 黃色線 */
+            margin: 0 auto 40px; /* 置中 + 下面空間 */
+        }
+        .about-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .author-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* 圓形 */
+            border: 3px solid #FFC709; /* 黃色圈圈 */
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .photo-caption {
+            text-align: center;
+            font-size: 0.9em;
+            font-style: italic;
+            color: #666;
+            margin: 10px 0 0 0;
+            width: 150px; /* 同相寬度對齊 */
+        }
+        .text-content {
+            flex: 1;
+            margin-left: 20px; /* 文字靠右，留空間畀相 */
+        }
+        .text-content h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #4abded;
+        }
+        .text-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .author-wrapper {
+                margin: 0 auto;
+                display: block;
+            }
+            .author-pic {
+                margin: 0 auto;
+            }
+            .photo-caption {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            .text-content {
+                margin-left: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+        <!-- Nav -->
+    <nav class="nav">
+        <div class="nav-logo">
+            <a href="index.html"><img src="NAV/Favicon.png" alt="Favicon"></a>
+            <a href="index.html"><img src="NAV/慢步·遊日記.png" alt="漫步遊日記"></a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="About.html">關於</a></li>        
+        </ul>
+    </nav>
+
+
+    <div class="blank-page">
+        <h1>關於</h1>
+        <div class="yellow-line"></div> <!-- 黃色線 -->
+        
+        <div class="about-content">
+            <div class="author-wrapper"> <!-- 包住相 + caption，畀佢一齊靠左 -->
+                <img src="Author-pic.jpg" alt="Ricky Lam" class="author-pic"> <!-- 換成你嘅相片URL -->
+                <p class="photo-caption">拍攝在台灣彰化的<br>台鐵扇形車庫。</p>
+            </div>
+            
+            <div class="text-content">
+                <h2>歡迎來到「慢步。遊日記」</h2>
+                <p>本網站由<strong>Ricky</strong>於2025年創辦，旨在與各位分享旅遊資訊。我通常獨自旅行，因為喜愛那種<strong>自由自在的感覺</strong>——無需遷就他人，純粹順從心意前行，想往哪裏就往哪裏。</p>
+                
+                <p>網站名稱<strong>「慢步·遊日記」</strong>源自我對旅行的哲學：「慢步」即<strong>慢慢漫步</strong>，象徵悠閒地探索世界，乘坐公共交通，從一處小站到另一處街角，細細品味沿途的風景與人情。「遊日記」——既是<strong>我個人的旅遊日記（Diary）</strong>，亦是專注<strong>日本的遊記</strong>，因為日本是我最喜愛的慢遊天堂。我主要分享日本旅遊文章，當然其他地點也會偶爾涉及。</p>
+                
+                <p><strong>希望透過此平台，激勵各位嘗試慢步旅行，發掘生活中的小確幸。  </strong> 😊</p>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="sns-icons">
+            <a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img src="Footer/Facebook.png" alt="Facebook" class="sns-icon"></a>
+            <a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img src="Footer/Instagram.webp" alt="Instagram" class="sns-icon"></a>
+        </div>
+        <div class="footer-text">
+            <p>Copyright © 2025 慢步·遊日記 版權所有。</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* Nav 永遠白底固定，加黃線 */
+        .nav {
+            
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 5px solid #ffc709; /* 黃線，5px */
+            box-shadow: 0 5px 0 0 #4adbed;
+            box-sizing: border-box;
+            
+        }
+
+        /* Nav 左邊圖片容器（一直顯示） */
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            
+        }
+
+        .nav-logo img {
+            height: 30px; /* 調圖片大小 */
+            width: auto;
+        }
+
+        /* Nav 右邊菜單文字 */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: #4adbed; /* 正常藍字 */
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .nav-menu a:hover {
+            background-color: #4adbed; /* hover 藍底 */
+            color: white; /* 白字 */
+        }
+
+        /* 手機響應式 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 10px;
+            }
+            .nav-logo img {
+                height: 20px; /* 調圖片大小 */
+                width: auto;
+            }
+        }

@@ -1,0 +1,27 @@
+.footer {
+    background-color: #f6f6f6; /* <!--! 設置 footer 背景色為灰色 !--> */
+    padding: 20px;
+    text-align: center;
+    flex-shrink: 0;
+} /* <!--! footer 背景灰色，居中內容 !--> */
+
+.sns-icons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-bottom: 15px;
+} /* <!--! SNS 圖標並排顯示，間距 20px，與文字分隔 !--> */
+
+.sns-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+} /* <!--! SNS 圖標尺寸，保持比例 !--> */
+
+.footer-text p {
+    color: #000000;
+    font-size: 10px;
+    line-height: 20px; /* <!--! 行距 5px（font-size 14px + 5px） !--> */
+    margin: 0;
+    white-space: normal;
+}
