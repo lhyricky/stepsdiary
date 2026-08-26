@@ -20,7 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // 3. 圖片
                 const img = document.createElement("img");
-                img.src = post.picture || "NAV/Cover-with-icons.jpg";
+                // 如果 post.picture 有內容就直接用（因為入面已經有 https://image.stepsdiary.cc/），如果冇就用預設圖
+                img.src = post.picture && post.picture.startsWith("http") 
+                ? post.picture 
+                : `https://image.stepsdiary.cc/${post.picture || "NAV/Cover-with-icons.jpg"}`;
                 img.alt = post.title || "";
                 img.loading = "lazy";
 
