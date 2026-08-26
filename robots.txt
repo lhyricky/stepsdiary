@@ -34,4 +34,4 @@ Disallow: /
 
 
 
-Sitemap: https://stepsdiary.cc/sitemap.xml
+Sitemap: https://stepsdiary.cc/sitemap_a.xml
