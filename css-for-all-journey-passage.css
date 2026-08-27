@@ -486,3 +486,20 @@
             width: 100%;
             }
         }
+
+        /* 預設或桌面版寬度 */
+        .giscus-container {
+            max-width: 800px; /* 隨便你原本設定嘅寬度 */
+            margin: 40px auto;
+            margin-bottom: 60px;
+            /*padding: 0 16px;*/
+            box-sizing: border-box;
+        }
+
+        /* 針對手機螢幕（螢幕寬度小於 768px） */
+        @media screen and (max-width: 768px) {
+             .giscus-container {
+             width: 100%;
+            
+            }
+        }
