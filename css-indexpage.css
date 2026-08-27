@@ -186,20 +186,28 @@
         bottom: 0; 
         left: 0; 
         right: 0;
-        padding: 20px 16px 16px;
-        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+        padding: 16px 14px 14px;       /* 稍微收窄 padding，爭取更多文字空間 */
+        background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
         color: white;
-        font-size: 1rem;
+        font-size: 0.95rem;           /* 稍微調小一點點，避免過長被卡 */
         font-weight: bold;
         text-shadow: 0 2px 4px rgba(0,0,0,0.6);
         z-index: 2;
-        line-height: 1.3;
+        line-height: 1.25;            /* 收緊行高，讓兩行更緊湊 */
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 2;        /* 維持兩行限制，保持版面整齊 */
         -webkit-box-orient: vertical;
         overflow: hidden;
-        opacity: 0.9;
+        opacity: 0.95;
         transition: opacity 0.3s ease;
+    }
+
+    /* 針對較窄螢幕的額外優化：縮小字體以防「赤煉瓦舊夢」被切 */
+    @media (max-width: 1100px) {
+        .title-overlay {
+            font-size: 0.88rem;       /* 在中小型電腦螢幕自動微調字體 */
+            padding: 14px 12px 12px;
+        }
     }
 
     .grid-item:hover .title-overlay {
