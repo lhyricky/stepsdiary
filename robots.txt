@@ -1,11 +1,4 @@
 User-Agent: *
-
-
-Crawl-delay: 10
-
-# We allow search indexing but opt-out of AI training where possible
-
-
 Allow: /
 
 User-agent: Amazonbot
@@ -34,4 +27,4 @@ Disallow: /
 
 
 
-Sitemap: https://stepsdiary.cc/sitemap_a.xml
+Sitemap: https://stepsdiary.cc/sitemap.xml
