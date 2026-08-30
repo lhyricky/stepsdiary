@@ -113,6 +113,7 @@
             border-bottom: 2px solid #4ABDED;
             padding-bottom: 5px;
             margin: 100px 0px 30px;
+            scroll-margin-top: 100px;
         }
 
         p {
@@ -503,3 +504,5 @@
             
             }
         }
+
+       

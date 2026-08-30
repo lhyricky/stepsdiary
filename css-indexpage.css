@@ -162,10 +162,8 @@
     .grid-item {
         position: relative;
         overflow: hidden;
-        border-radius: 16px;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        background: #000;
+        height: 100%;
+        align-items: stretch; /* 強制內部元素撐滿格子高度 */
     }
 
     .grid-item img {
@@ -173,6 +171,7 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        flex: 1; /* 確保圖片作為主體撐起高度，不會變黑 */
         transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
     }
 
@@ -186,20 +185,21 @@
         bottom: 0; 
         left: 0; 
         right: 0;
-        padding: 16px 14px 14px;       /* 稍微收窄 padding，爭取更多文字空間 */
+        padding: 14px 12px 12px;       /* 稍微收窄 padding，爭取更多文字空間 */
         background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
         color: white;
-        font-size: 0.95rem;           /* 稍微調小一點點，避免過長被卡 */
+        font-size: 0.9rem;           /* 稍微調小一點點，避免過長被卡 */
         font-weight: bold;
         text-shadow: 0 2px 4px rgba(0,0,0,0.6);
         z-index: 2;
-        line-height: 1.25;            /* 收緊行高，讓兩行更緊湊 */
+        line-height: 1.2;            /* 收緊行高，讓兩行更緊湊 */
         display: -webkit-box;
-        -webkit-line-clamp: 2;        /* 維持兩行限制，保持版面整齊 */
+        -webkit-line-clamp: 4;        
         -webkit-box-orient: vertical;
         overflow: hidden;
         opacity: 0.95;
         transition: opacity 0.3s ease;
+        pointer-events: none; /* 讓滑鼠穿透標題，確保點擊到link */
     }
 
     /* 針對較窄螢幕的額外優化：縮小字體以防「赤煉瓦舊夢」被切 */
@@ -252,4 +252,39 @@
             grid-template-columns: 1fr;
             grid-auto-rows: 250px;
         }
+    }
+
+    .grid-item .tag-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        height: 30px;
+        padding: 5px 12px;
+        background: #4adbed;
+        color: #ffffff !important;        /* 強制白色文字，確保睇到 */;
+        border-radius: 15px;
+        font-size: 0.85em;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        z-index: 4; /* 確保浮在圖片上方、在標題底下 */
+        pointer-events: none; /* 永遠不可以被點擊 */
+    }
+    /* 讓背景圖 div 絕對定位並撐滿整個 grid-item */
+    .grid-img-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+        z-index: 1; /* 放在最底层 */
+    }
+
+    .grid-item:hover .grid-img-bg {
+        transform: scale(1.06);
+        filter: brightness(0.8);
     }

@@ -27,36 +27,39 @@
         h1 {
             text-align: center;
             font-size: 2em;
-            margin: 30px 0px;
+            margin: 30px 0px 10px 0px;
             color: #4A4A4A;
+        }
+
+        .post-count {
+            text-align: center;
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 25px;
         }
 
         .yellow-line {
             width: 100px;
             height: 3px;
-            background-color: #FFD700; /* 黃色線 */
-            margin: 0 auto 40px; /* 置中 + 下面空間 */
+            background-color: #FFD700;
+            margin: 0 auto 40px;
         }
 
-        .filter-content{
+        .filter-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 50vh;
-            
-            text-align: center;
             padding: 20px;
             box-sizing: border-box;
         }
 
-         @media (max-width: 675px) {
-            .filter-content{
-                padding: 0px;
+        @media (max-width: 1050px) {
+            .filter-content {
+                padding: 0px 15px;
             }
-         }
-
-        
+        }
 
         .home-button {
             background-color: #4adbed;
@@ -74,49 +77,58 @@
             opacity: 0.8;
         }
 
-        /* ==== blank-page 內部樣式 ==== */
-        
         #currentTag {
             color: #4adbed;
             font-weight: bold;
         }
         
+        #postList {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
         .post-item {
             background: white;
             border-radius: 12px;
-            padding: 25px;
-            margin: 25px auto;                /* 上下 25px，左右 auto 居中 */
-            background: white;
-            border-radius: 12px;
+            padding: 30px;
+            margin: 20px auto;
+            width: 1000px;
+            max-width: 100%;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
-            box-sizing: border-box;           /* 重要！！！ */
-            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
-        /* 手機窄屏時減少 padding 令佢更舒服 */
-        @media (max-width: 675px) {
+
+        @media (max-width: 1050px) {
             .post-item {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
                 padding: 20px;
-                margin: 20px 15px;        /* 左右留少少空位，避免貼邊太近 */
-                border-radius: 10px;
-            }
-            .post-picture {
-                height: 180px;
+                gap: 20px;
             }
         }
 
-        @media (min-width: 675px) {
-            .post-item {
-                min-width: 600px;
-            }
-        }
         .post-item:hover {
-            
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
+
+        .post-text-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .post-item h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.4em;
+            margin: 0 0 12px 0;
+            font-size: 1.5em;
+            line-height: 1.3;
         }
         .post-item h3 a {
             color: #4adbed;
@@ -129,35 +141,58 @@
         .post-meta {
             color: #95a5a6;
             font-size: 0.95em;
-            margin: 8px 0;
+            margin-bottom: 12px;
         }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
         .post-tags .tag {
             display: inline-block;
             background: #f6f6f6;
-            color: black;
+            color: #333;
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.85em;
-            margin: 4px 4px 0 0;
+            text-decoration: none;
+            transition: background 0.2s;
         }
+
+        .post-tags .tag:hover {
+            background: #e2e2e2;
+        }
+
         .no-result {
             text-align: center;
             padding: 80px 20px;
             color: #7f8c8d;
             font-size: 1.2em;
         }
+        
         .loading {
             text-align: center;
             padding: 60px;
             color: #4adbed;
             font-size: 1.1em;
         }
+
         .post-picture {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 15px;
+            width: 350px;
+            height: 220px;
+            flex-shrink: 0;
             overflow: hidden;
             border-radius: 8px;
+        }
+
+        @media (max-width: 1050px) {
+            .post-picture {
+                width: 100%;
+                height: 220px;
+            }
         }
 
         .post-picture img {
@@ -173,7 +208,6 @@
     </style>
 </head>
 <body>
-    <!-- Nav -->
     <nav class="nav">
         <div class="nav-logo">
             <a href="index.html"><img src="NAV/Favicon.png" alt="Favicon"></a>
@@ -191,16 +225,13 @@
 
         <div class="filter-content">
             <h1>標籤：<span id="currentTag"></span> 的文章</h1>
+            <div id="postCount" class="post-count"></div>
             <div class="yellow-line"></div>
             <div id="postList">
                 <div class="loading">載入文章中，請稍候⋯</div>
             </div>
             <a href="index.html" class="home-button">回到首頁</a>
         </div>
-
-        
-        
-        
     </div>
 
     <footer class="footer">
@@ -214,7 +245,6 @@
     </footer>
 
     <script>
-// 讀取 ?tag=XXX（順便 trim）
 const urlParams = new URLSearchParams(window.location.search);
 const tag = decodeURIComponent(urlParams.get('tag') || '').trim();
 
@@ -226,15 +256,15 @@ if (!tag) {
     fetch('posts.json')
         .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
         .then(posts => {
-            // 關鍵：比對前全部 trim！永不中隱藏空格招
             const filtered = posts.filter(p => 
                 p.tags && 
                 Array.isArray(p.tags) && 
                 p.tags.some(t => typeof t === 'string' && t.trim() === tag)
             );
 
-            // 按日期排序
             filtered.sort((a, b) => new Date(b.dayoftravel) - new Date(a.dayoftravel));
+
+            document.getElementById('postCount').textContent = `共有 ${filtered.length} 篇`;
 
             if (filtered.length === 0) {
                 document.getElementById('postList').innerHTML = `
@@ -247,12 +277,16 @@ if (!tag) {
 
             const html = filtered.map(post => `
                 <div class="post-item">
-                    ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
-                    <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
-                    <div class="post-meta">發布日期：${post.writedate || '未知'}</div>
-                    <div class="post-tags">
-                        ${Array.isArray(post.tags) ? post.tags.map(t => `<span class="tag">${t}</span>`).join('') : ''}
+                    <div class="post-text-content">
+                        <div>
+                            <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
+                            <div class="post-meta">發布於 ${post.writedate || '未知'}</div>
+                        </div>
+                        <div class="post-tags">
+                            ${Array.isArray(post.tags) ? post.tags.map(t => `<a href="tag-filter.html?tag=${encodeURIComponent(t.trim())}" class="tag">#${t.trim()}</a>`).join('') : ''}
+                        </div>
                     </div>
+                    ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
                 </div>
             `).join('');
 
