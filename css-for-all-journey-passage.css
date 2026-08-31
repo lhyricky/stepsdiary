@@ -44,8 +44,6 @@
             align-items: center;
             margin: 20px auto;
             padding: 5px;
-            
-            
         }
 
         .directory li {
@@ -63,28 +61,16 @@
             text-decoration: underline;
         }
 
-        .that-day-weather {
-            border-left: 5px solid #4ABDED;
-            color: #4ABDED;
-            font-weight: bold;
-            background-color: #f0f4f8;
-            width: 50%;
-            margin: 30px;
-            padding: 5px;
-        }
 
-        .that-day-weather p {
-            font-size: 25px;
-            padding: 10px;
-            text-align: center;
-        }
 
         @media (max-width: 675px) {
             .directory {
                 margin: 30px 50px;
             }
-            .that-day-weather {
-                margin: 30px 50px;
+            .directory li {
+            line-height: 1.3;
+            margin: 5px 20px;
+            font-size: 16px;
             }
         }
     
@@ -109,6 +95,7 @@
         }
 
         h2 {
+            font-size: 30px;
             color: #2c3e50;
             border-bottom: 2px solid #4ABDED;
             padding-bottom: 5px;
@@ -116,9 +103,24 @@
             scroll-margin-top: 100px;
         }
 
+        @media screen and (max-width: 675px) {
+            h2 {
+                font-size: 20px;
+            }
+        }
+
         p {
             font-size: 20px;
             line-height: 2;
+            margin: 10px 0;
+        }
+
+        /* 當螢幕小於 675px（手機和平板）時自動生效 */
+        @media screen and (max-width: 675px) {
+            p {
+                font-size: 16px;       /* 把手機版字體稍微調細（可自行改 15px 或 16px） */
+                line-height: 1.6;    /* 把行距收窄，避免上下罅隙太大 */
+            }
         }
 
         .googlemap {
@@ -133,7 +135,7 @@
             display: flex; /* 用Flexbox布局 */
             justify-content: center; /* 兩個section一左一右，間隔平均 */
             
-            margin: 20px auto; /* 盒子居中，上下留白 */
+            margin: 10px auto; /* 盒子居中，上下留白 */
             padding: 20px; /* 盒子內邊距 */
             border: 0px solid #ccc; /* 加個邊框，睇得出係盒子（可選） */
             border-radius: 0px; /* 圓角（可選） */
@@ -150,43 +152,43 @@
 
         }
 
-        .image-section .horizontal {
+        /* 1. 所有圖片共用的基本樣式 */
+        .image-section img {
             display: block;
-            width: 100%; /* 圖片填滿容器 */
+            width: 100%;
             max-width: 600px;
-            
             object-fit: contain;
             object-position: center;
-            /*max-height: 400px;*/
-            border: 20px; /* 圖下面留白 */
             border-radius: 20px;
-            background-color: #f5f5f5;
-            
+            background-color: #f6f6f6;
+            margin: 0 auto;
+        }
+
+        /* 2. 桌面版：橫度相統一比例設定 (預設 16:9) */
+        
+
+        /* 3. 橫度相比例微調 class */
+        .image-section .ratio-169 {
+            aspect-ratio: 16 / 9;
+        }
+
+        .image-section .ratio-43 {
+            aspect-ratio: 4 / 3;
+        }
+
+        /* 4. 桌面版：直度相高度限制 */
+        .image-section .vertical {
+            max-height: 400px;
         }
 
         @media (min-width: 675px) {
-            .image-section .horizontal {
-                aspect-ratio:  1.78;
+            .image-section .vertical {
+            max-height: 400px; /* 限制最高 400px */
+            width: auto;       /* 寬度隨高度自動縮放 */
+            margin: 0 auto;    /* 左右置中，唔會偏側 */
             }
         }
-
-        .image-section .solo-ver {
-            display: block;
-            object-fit: contain;
-            object-position: center;
-            
-            border: 20px; /* 圖下面留白 */
-            border-radius: 20px;
-            background-color: #f5f5f5;
-            
-        }
-
-        @media (min-width: 675px) {
-            .image-section .solo-ver {
-                max-height: 400px;
-            }
-        }
-
+        
 
         .image-section p {
             font-size: 14px; /* 描述文字大小 */
@@ -210,14 +212,14 @@
                 flex-direction: column;
                 padding: 0px;
             }
-            .text-section, .image-section, .that-day-weather, .directory {
+            .text-section, .image-section, .directory {
                 width: 100%;
                 margin: 10px 0px;
             }
             .text-section p {
                 margin: 0px;
             }
-            .image-section .horizontal, .solo-ver {
+            .image-section .horizontal, .vertical {
                 width: 100%;
                 /* height: auto;} */
             }    
