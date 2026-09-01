@@ -1,65 +1,108 @@
-/* Nav 永遠白底固定，加黃線 */
-        .nav {
-            
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 5px solid #ffc709; /* 黃線，5px */
-            box-shadow: 0 5px 0 0 #4adbed;
-            box-sizing: border-box;
-            
-        }
 
-        /* Nav 左邊圖片容器（一直顯示） */
-        .nav-logo {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            
-        }
 
-        .nav-logo img {
-            height: 30px; /* 調圖片大小 */
-            width: auto;
-        }
 
-        /* Nav 右邊菜單文字 */
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
 
-        .nav-menu a {
-            color: #4adbed; /* 正常藍字 */
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: bold;
-        }
+/* 確保頁面橫向不會溢出，維護 sticky 運作 */
+html, body {
+    overflow-x: hidden;
+}
 
-        .nav-menu a:hover {
-            background-color: #4adbed; /* hover 藍底 */
-            color: white; /* 白字 */
-        }
 
-        /* 手機響應式 */
-        @media (max-width: 768px) {
-            .nav-menu {
-                gap: 10px;
-            }
-            .nav-logo img {
-                height: 20px; /* 調圖片大小 */
-                width: auto;
-            }
-        }
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 強制寬度剛好等於整個螢幕視窗 */
+    background-color: white;
+    padding: 5px 25px;
+    display: flex;
+    justify-content: space-between; /* 確保 logo 在左、選單在右 */
+    align-items: center;
+    z-index: 9999;
+    border-bottom: 5px solid #ffc709;
+    box-shadow: 0 5px 0 0 #4adbed;
+    box-sizing: border-box; /* 確保 padding 不會把寬度撐爆 */
+}
+/* Nav 左邊圖片容器 */
+.nav-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo img {
+    height: 30px;
+    width: auto;
+}
+
+/* Nav 右邊菜單容器 */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+/* 專屬按鈕：完美包裹 icon 同文字，絕對唔會上下分離 */
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: transparent;
+    color: #4adbed;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.nav-btn:hover {
+    background-color: #4adbed;
+    color: white;
+}
+
+/* 鎖死 icon 大小，絕對唔會走位 */
+.nav-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+/* 預設狀態：將白色 icon 透過濾鏡轉成跟文字一樣的藍色 (#4adbed) */
+.nav-btn .nav-icon {
+    filter: brightness(0) saturate(100%) invert(77%) sepia(21%) saturate(1212%) hue-rotate(152deg) brightness(94%) contrast(92%);
+}
+
+/* Hover 狀態：當背景變成藍色、文字變白色時，把 icon 轉回純白色 */
+.nav-btn:hover .nav-icon {
+    filter: brightness(0) invert(1);
+}
+
+
+/* 手機響應式 */
+@media (max-width: 675px) {
+    .nav-logo img {
+        height: 20px;
+        width: auto;
+    }
+}
+
+/* 窄屏小於 675px 時：隱藏文字，按鈕變成精緻正方形裝住 icon */
+@media (max-width: 675px) {
+    .nav-text {
+        display: none;
+    }
+    .nav-menu {
+        gap: 8px;
+    }
+    .nav-btn {
+        padding: 9px;
+    }
+}

@@ -98,15 +98,8 @@
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js" defer></script>
 </head>
 <body>
-<nav class="nav">
-<div class="nav-logo">
-<a href="index.html"><img loading="lazy" alt="Favicon" src="NAV/Favicon.png"/></a>
-<a href="index.html"><img loading="lazy" alt="慢步·遊日記" src="NAV/慢步·遊日記.png"/></a>
-</div>
-<ul class="nav-menu">
-<li><a href="About.html">關於</a></li>
-</ul>
-</nav>
+<!-- Nav -->
+ <div id="nav-placeholder"></div>
 <div class="hero">
 <img loading="lazy" alt="聖橋" src="https://image.stepsdiary.cc/2025/cover-photos/JUL24-cover.webp"/>
 <div class="hero-content">
@@ -460,16 +453,9 @@
 </div>
 <p>完成入住手續後，我梳洗一番、用過晚餐，便入睡休息💤。</p>
 </div>
-<div class="flip-pages-box">
-<div class="prev-content">
-<a class="prev-article-title" href=""></a>
-</div>
-<div class="series-name">2025年7月至8月<br/>日本東北、關西之旅</div>
-<div class="next-content">
-<a class="next-article-title" href="Journey20250725-fukushima-nuclear-area-visit.html"><strong>下一篇文章：</strong><br/>福島一日遊：<br>核災禁區深度行</a>
-<span class="arrow right"> &gt;&gt; </span>
-</div>
-</div>
+
+<div id="pagination-container"></div>
+
 <div class="giscus-container">
 <script src="https://giscus.app/client.js"
         data-repo="lhyricky/stepsdiary"
@@ -490,16 +476,11 @@
 </div>
 <button class="to-top-btn" onclick="scrollToTop()"><img loading="lazy" class="arrow-upward" src="NAV/arrow-upward.png"/></button> <!-- 用 ↑ 符號做圖示，你可以換成文字如 "TOP" -->
 </div>
-<footer class="footer">
-<div class="sns-icons">
-<a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img loading="lazy" alt="Facebook" class="sns-icon" src="Footer/Facebook.png"/></a>
-<a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img loading="lazy" alt="Instagram" class="sns-icon" src="Footer/Instagram.webp"/></a>
-</div>
-<div class="footer-text">
-<p>Copyright © 2025 慢步·遊日記 版權所有。</p>
-</div>
-</footer>
+<div id="footer-placeholder"></div>
+<script src="call-nav.js"></script>
 <script src="Scroll-advice-and-to-top-button.js"></script>
 <script src="tag-buttons.js"></script>
+<script src="call-pagination.js"></script>
+<script src="call-footer.js"></script>
 </body>
 </html>

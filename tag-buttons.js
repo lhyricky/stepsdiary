@@ -8,7 +8,8 @@
             btn.style.cursor = 'pointer';
             btn.addEventListener('click', function () {
                 const tagName = this.getAttribute('data-tag');
-                window.open(`tag-filter.html?tag=${tagName}`, '_blank');
+                // 讓點擊 tag 時，統一帶入 q 參數
+                window.open(`search.html?q=${encodeURIComponent(tagName)}`, '_blank');
             });
             btn.dataset.bound = 'true'; // 標記已綁定
         });

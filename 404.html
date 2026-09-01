@@ -54,21 +54,26 @@
             opacity: 0.8;
         }
 
-        
+        /* 讓按鈕內部使用 Flexbox，確保圖片同文字水平置中、間距適中 */
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px; /* 圖標同文字之間的距離 */
+        }
+
+        /* 控制按鈕入面圖片的大小 */
+        .btn-icon {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
 
     </style>
 </head>
 <body>
         <!-- Nav -->
-    <nav class="nav">
-        <div class="nav-logo">
-            <a href="index.html"><img src="NAV/Favicon.png" alt="Favicon"></a>
-            <a href="index.html"><img src="NAV/慢步·遊日記.png" alt="漫步遊日記"></a>
-        </div>
-        <ul class="nav-menu">
-            <li><a href="About.html">關於</a></li>        
-        </ul>
-    </nav>
+    <div id="nav-placeholder"></div>
 
 
     <div class="blank-page">
@@ -77,19 +82,15 @@
         </div>
         <div class="error-content">
             <div class="error-message">沒有找到這網頁</div>
-            <a href="index.html" class="home-button">回到首頁</a>
+            <a href="index.html" class="home-button">回到首頁
+                <img src="NAV/home-icon.png" alt="首頁" class="btn-icon">
+            </a>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="sns-icons">
-            <a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img src="Footer/Facebook.png" alt="Facebook" class="sns-icon"></a>
-            <a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img src="Footer/Instagram.webp" alt="Instagram" class="sns-icon"></a>
-        </div>
-        <div class="footer-text">
-            <p>Copyright © 2025 慢步·遊日記 版權所有。</p>
-        </div>
-    </footer>
-
+    <div id="footer-placeholder"></div>
+    <script src="call-nav.js"></script>
+    <script src="call-footer.js"></script>
 </body>
+
 </html>

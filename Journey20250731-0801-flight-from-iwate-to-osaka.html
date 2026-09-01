@@ -88,15 +88,8 @@
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js" defer></script>
 </head>
 <body>
-<nav class="nav">
-<div class="nav-logo">
-<a href="index.html"><img loading="lazy" alt="Favicon" src="NAV/Favicon.png"/></a>
-<a href="index.html"><img loading="lazy" alt="慢步·遊日記" src="NAV/慢步·遊日記.png"/></a>
-</div>
-<ul class="nav-menu">
-<li><a href="About.html">關於</a></li>
-</ul>
-</nav>
+<!-- Nav -->
+ <div id="nav-placeholder"></div>
 <div class="hero">
 <img loading="lazy" alt="盛岡 大阪" src="https://image.stepsdiary.cc/2025/cover-photos/AUG01-cover.webp"/>
 <div class="hero-content">
@@ -244,17 +237,9 @@
 <p>吃完我便在附近逛街，從天王寺步行回酒店🏨，在天橋上拍攝<strong>阿倍野區</strong>的風景。然後就坐🚇地鐵回到動物園前站，再走回酒店睡覺🛌了。</p>
 </div>
 </div>
-<div class="flip-pages-box">
-<div class="prev-content">
-<span class="arrow left">&lt;&lt; </span>
-<a class="prev-article-title" href="Journey20250730-iwate-koiwai-farm-and-old-red-brick-bank.html"><strong>上一篇文章：</strong><br/>岩手一日遊：<br>小岩井農場綠野奶香時光與赤煉瓦舊夢歷史行</a>
-</div>
-<div class="series-name">2025年7月至8月<br/>日本東北、關西之旅</div>
-<div class="next-content">
-<a class="next-article-title" href="Journey20250802-himeji-castle-and-disaster-prevention.html"><strong>下一篇文章：</strong><br/>兵庫姬路一日遊：<br>世界遺產姬路古堡與防災未來館深度行</a>
-<span class="arrow right"> &gt;&gt; </span>
-</div>
-</div>
+
+<div id="pagination-container"></div>
+
 <div class="giscus-container">
 <script src="https://giscus.app/client.js"
         data-repo="lhyricky/stepsdiary"
@@ -276,16 +261,11 @@
 <button class="to-top-btn" onclick="scrollToTop()"><img loading="lazy" class="arrow-upward" src="NAV/arrow-upward.png"/></button> <!-- 用 ↑ 符號做圖示，你可以換成文字如 "TOP" -->
 </div>
 </div>
-<footer class="footer">
-<div class="sns-icons">
-<a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img loading="lazy" alt="Facebook" class="sns-icon" src="Footer/Facebook.png"/></a>
-<a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img loading="lazy" alt="Instagram" class="sns-icon" src="Footer/Instagram.webp"/></a>
-</div>
-<div class="footer-text">
-<p>Copyright © 2025 慢步·遊日記 版權所有。</p>
-</div>
-</footer>
+<div id="footer-placeholder"></div>
+<script src="call-nav.js"></script>
 <script src="Scroll-advice-and-to-top-button.js"></script>
 <script src="tag-buttons.js"></script>
+<script src="call-pagination.js"></script>
+<script src="call-footer.js"></script>
 </body>
 </html>

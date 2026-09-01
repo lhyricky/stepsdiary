@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜尋結果 - 慢步·遊日記</title>
+    <link rel="icon" type="image/x-icon" href="NAV/Favicon.png">
+    <link rel="stylesheet" href="css-for-all-pages.css">
+    <link rel="stylesheet" href="css-nav.css">
+    <link rel="stylesheet" href="css-footer.css">
+    <!-- 引入 Fuse.js 搜尋引擎庫 -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+    <style>
+        .banner-of-the-top {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .banner {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin: 30px 0px 10px 0px;
+            color: #4A4A4A;
+        }
+
+        .search-bar-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 25px 0;
+            width: 100%;
+        }
+
+        /* 讓搜尋輸入框變成一個相對定位的容器，用來擺放清除按鈕 (X) */
+        .search-input-wrapper {
+            position: relative;
+            flex: 2;
+            min-width: 240px; /* 確保輸入框有最小寬度 */
+            display: flex;
+            align-items: center;
+        }
+
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 800px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 35px 12px 18px; /* 右側留出位置畀交叉按鈕 */
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        .search-button {
+            background-color: #4adbed;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .search-input:focus {
+            border-color: #4adbed;
+        }
+
+        .search-button:hover {
+            opacity: 0.8;
+        }
+
+        /* 讓按鈕內部使用 Flexbox，確保圖片同文字水平置中、間距適中 */
+        .search-button, .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px; /* 圖標同文字之間的距離 */
+        }
+
+        /* 控制按鈕入面圖片的大小 */
+        .btn-icon {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
+
+        /* 交叉清除按鈕樣式 */
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 0;
+            display: none; 
+        }
+
+        .clear-btn:hover {
+            color: #333;
+        }
+
+        /* 下拉選單樣式：黃色底、白色字 */
+        .sort-dropdown {
+            background-color: #FFD700;
+            color: white;
+            border: none;
+            padding: 12px 30px 12px 20px; /* 增加右側 padding，避免箭咀太貼邊 */
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            transition: opacity 0.2s;
+            
+            flex-shrink: 0;
+            appearance: none; /* 移除瀏覽器預設樣式以便自訂箭咀位置 */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 10px center; /* 調整箭咀位置，唔會貼住右邊 */
+        }
+
+        .sort-dropdown option {
+            background-color: white;
+            color: #333;
+        }
+
+        .sort-dropdown:hover {
+            opacity: 0.8;
+        }
+
+        .post-count {
+            text-align: center;
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .yellow-line {
+            width: 100px;
+            height: 3px;
+            background-color: #FFD700;
+            margin: 0 auto 40px;
+        }
+
+        .filter-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1050px) {
+            .filter-content {
+                padding: 0px 0px;
+            }
+        }
+
+        .home-button {
+            background-color: #4adbed;
+            color: white;
+            padding: 12px 24px;
+            margin: 30px 0 50px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px; /* 文字同屋仔之間的距離 */
+            flex-direction: row; /* 強制水平由左至右 */
+        }
+        .home-button:hover {
+            opacity: 0.8;
+        }
+
+        .highlight-keyword {
+            color: #4adbed;
+            font-weight: bold;
+        }
+        
+        #postList {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .post-item {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px auto;
+            width: 1000px;
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        @media (max-width: 1050px) {
+            .post-item {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 20px;
+                gap: 20px;
+            }
+        }
+
+        .post-item:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .post-text-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .post-item h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.5em;
+            line-height: 1.3;
+        }
+        .post-item h3 a {
+            color: #4adbed;
+            text-decoration: none;
+        }
+        .post-item h3 a:hover {
+            opacity: 0.8;
+        }
+
+        .post-meta {
+            color: #95a5a6;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .post-tags .tag {
+            display: inline-block;
+            background: #f6f6f6;
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .post-tags .tag:hover {
+            background: #e2e2e2;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #4adbed;
+            font-size: 1.1em;
+        }
+
+        .post-picture {
+            width: 350px;
+            height: 220px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1050px) {
+            .post-picture {
+                width: 100%;
+                height: 220px;
+            }
+        }
+
+        .post-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .post-item:hover .post-picture img {
+            transform: scale(1.05);
+        }
+
+        .search-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .search-options label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 確保文章卡片內的文字與排版在手機完美縮放 */
+.post-item {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-text-content {
+    word-break: break-word; /* 防止長英文字串或網址撐闊版面 */
+    overflow: hidden;
+}
+
+/* 針對細螢幕（如手機）進一步優化字體與間距大小 */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6em;
+        padding: 0 15px;
+    }
+    
+    .search-form {
+        padding: 0 10px;
+        gap: 8px;
+    }
+
+    .post-item {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .post-item h3 {
+        font-size: 1.25em;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <div id="nav-placeholder"></div>
+
+    <div class="blank-page">
+        <div class="banner-of-the-top">
+            <img class="banner" src="NAV/My Website banner.png" alt="慢步·遊日記">
+        </div>
+
+        <div class="filter-content">
+            <h1 id="pageTitle">載入中⋯</h1>
+
+            <div class="search-bar-container">
+                <form class="search-form" action="search.html" method="GET">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="searchInputBox" name="q" class="search-input" placeholder="想去邊度旅行？輸入關鍵字..." required>
+                        <button type="button" id="clearBtn" class="clear-btn" title="清除輸入">✕</button>
+                    </div>
+                    <button type="submit" class="search-button">搜尋
+                        <img src="NAV/search-icon.png" alt="搜尋" class="btn-icon">
+                    </button>
+                    <div class="search-options">
+                        <label><input type="radio" name="searchScope" value="title" checked> 只搜尋標題</label>
+                        <label><input type="radio" name="searchScope" value="all"> 全文搜尋</label>
+                    </div>
+                    <select id="sortSelect" class="sort-dropdown">
+                        <option value="newest">按旅遊日期排列（最新）</option>
+                        <option value="oldest">按旅遊日期排列（最舊）</option>
+                    </select>
+                </form>
+            </div>
+
+            <div id="postCount" class="post-count"></div>
+            <div class="yellow-line"></div>
+            
+            <div id="postList">
+                <div class="loading">正在搜尋文章，請稍候⋯</div>
+            </div>
+
+            <a href="index.html" class="home-button">回到首頁
+                <img src="NAV/home-icon.png" alt="首頁" class="btn-icon">
+            </a>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+const searchQuery = decodeURIComponent(urlParams.get('q') || '').trim();
+
+const pageTitleEl = document.getElementById('pageTitle');
+const postCountEl = document.getElementById('postCount');
+const postListEl = document.getElementById('postList');
+const searchInputBox = document.getElementById('searchInputBox');
+const sortSelect = document.getElementById('sortSelect');
+
+if (searchQuery) {
+    searchInputBox.value = searchQuery;
+    pageTitleEl.innerHTML = `含有關鍵字： <span class="highlight-keyword">${searchQuery}</span> 的文章`;
+}
+
+// 將日期格式化為 YYYY-MM-DD
+function formatTravelDate(dateVal) {
+    if (!dateVal) return '未知';
+    const str = String(dateVal);
+    if (str.length === 8) {
+        return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
+    }
+    return dateVal;
+}
+
+// 渲染文章列表函數（包含 description 顯示）
+function renderPosts(posts, emptyMessage) {
+    postCountEl.textContent = `共有 ${posts.length} 篇`;
+
+    if (posts.length === 0) {
+        postListEl.innerHTML = `<div class="no-result">${emptyMessage}</div>`;
+        return;
+    }
+
+    const html = posts.map(post => `
+        <div class="post-item">
+            <div class="post-text-content">
+                <div>
+                    <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
+                    <div class="post-meta">發布於 ${post.writedate || '未知'} | 旅遊日期 ${formatTravelDate(post.dayoftravel)}</div>
+                    <p class="post-desc" style="color: #666; font-size: 0.95em; margin: 8px 0 12px 0; line-height: 1.4;">${post.description || ''}</p>
+                </div>
+                <div class="post-tags">
+                    ${Array.isArray(post.tags) ? post.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t.trim())}" class="tag">#${t.trim()}</a>`).join('') : ''}
+                </div>
+            </div>
+            ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
+        </div>
+    `).join('');
+
+    postListEl.innerHTML = html;
+}
+
+// 執行搜尋與排序的核心邏輯
+function performSearch() {
+    if (!searchQuery) {
+        pageTitleEl.textContent = '請輸入搜尋關鍵字';
+        postListEl.innerHTML = '<div class="no-result">沒有提供任何搜尋條件</div>';
+        return;
+    }
+
+    fetch('posts.json')
+        .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
+        .then(posts => {
+            const queryLower = searchQuery.toLowerCase();
+            const searchScope = document.querySelector('input[name="searchScope"]:checked').value;
+
+            let includedPosts = [];
+            let fuseResult = [];
+
+            if (searchScope === 'title') {
+                // 只搜尋標題
+                includedPosts = posts.filter(post => {
+                    return post.title && post.title.toLowerCase().includes(queryLower);
+                });
+
+                const options = {
+                    keys: ['title'], 
+                    threshold: 0.3, 
+                    includeScore: true
+                };
+                const fuse = new Fuse(posts, options);
+                fuseResult = fuse.search(searchQuery);
+
+            } else {
+                // 全文搜尋（標題、標籤、描述、內文）
+                includedPosts = posts.filter(post => {
+                    const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
+                    const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
+                    const contentMatch = post.content && post.content.toLowerCase().includes(queryLower);
+                    const tagMatch = post.tags && post.tags.some(t => typeof t === 'string' && t.toLowerCase().includes(queryLower));
+                    return titleMatch || descMatch || contentMatch || tagMatch;
+                });
+
+                const options = {
+                    keys: ['title', 'tags', 'description', 'content'], 
+                    threshold: 0.5, 
+                    includeScore: true
+                };
+                const fuse = new Fuse(posts, options);
+                fuseResult = fuse.search(searchQuery);
+            }
+
+            // 合併結果並去重複
+            const combinedMap = new Map();
+            [...includedPosts, ...fuseResult.map(r => r.item)].forEach(post => {
+                if (post.url && !combinedMap.has(post.url)) {
+                    combinedMap.set(post.url, post);
+                }
+            });
+
+            let matchedPosts = Array.from(combinedMap.values());
+
+            // 排序與渲染函數
+            function sortAndRender() {
+                const sortType = sortSelect.value;
+
+                matchedPosts.sort((a, b) => {
+                    if (sortType === 'oldest') {
+                        return new Date(a.dayoftravel) - new Date(b.dayoftravel);
+                    } else {
+                        return new Date(b.dayoftravel) - new Date(a.dayoftravel);
+                    }
+                });
+
+                renderPosts(matchedPosts, `找不到與「${searchQuery}」相關的文章`);
+            }
+
+            sortAndRender();
+            sortSelect.onchange = sortAndRender;
+        })
+        .catch(err => {
+            console.error(err);
+            postListEl.innerHTML = '<div class="no-result">載入文章資料失敗，請稍後再試</div>';
+        });
+}
+
+// 頁面載入時執行搜尋
+performSearch();
+
+// 清除按鈕邏輯
+const clearBtn = document.getElementById('clearBtn');
+
+function toggleClearBtn() {
+    if (searchInputBox.value.length > 0) {
+        clearBtn.style.display = 'block';
+    } else {
+        clearBtn.style.display = 'none';
+    }
+}
+
+searchInputBox.addEventListener('input', toggleClearBtn);
+toggleClearBtn();
+
+clearBtn.addEventListener('click', () => {
+    searchInputBox.value = '';
+    toggleClearBtn();
+    searchInputBox.focus();
+});
+
+// 當切換搜尋範圍選項時自動重新搜尋
+document.querySelectorAll('input[name="searchScope"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (searchQuery) {
+            performSearch();
+        }
+    });
+});
+    </script>
+    <script src="call-nav.js"></script>
+    <script src="call-footer.js"></script>
+</body>
+</html>

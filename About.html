@@ -62,7 +62,7 @@
             margin-bottom: 15px;
             text-align: justify;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 675px) {
             .about-content {
                 flex-direction: column;
                 text-align: center;
@@ -84,19 +84,24 @@
             }
         }
 
+        p {
+            font-size: 20px;
+            line-height: 2;
+            margin: 10px 0;
+        }
+
+        /* 當螢幕小於 675px（手機和平板）時自動生效 */
+        @media screen and (max-width: 675px) {
+            p {
+                font-size: 16px;       /* 把手機版字體稍微調細（可自行改 15px 或 16px） */
+                line-height: 1.6;    /* 把行距收窄，避免上下罅隙太大 */
+            }
+        }
+
     </style>
 </head>
 <body>
-        <!-- Nav -->
-    <nav class="nav">
-        <div class="nav-logo">
-            <a href="index.html"><img src="NAV/Favicon.png" alt="Favicon"></a>
-            <a href="index.html"><img src="NAV/慢步·遊日記.png" alt="漫步遊日記"></a>
-        </div>
-        <ul class="nav-menu">
-            <li><a href="About.html">關於</a></li>        
-        </ul>
-    </nav>
+    <div id="nav-placeholder"></div>
 
 
     <div class="blank-page">
@@ -122,15 +127,10 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="sns-icons">
-            <a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img src="Footer/Facebook.png" alt="Facebook" class="sns-icon"></a>
-            <a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img src="Footer/Instagram.webp" alt="Instagram" class="sns-icon"></a>
-        </div>
-        <div class="footer-text">
-            <p>Copyright © 2025 慢步·遊日記 版權所有。</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
+ 
+    <script src="call-nav.js"></script>
+    <script src="call-footer.js"></script>
 </body>
 </html>

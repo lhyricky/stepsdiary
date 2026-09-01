@@ -100,15 +100,8 @@
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js" defer></script>
 </head>
 <body>
-<nav class="nav">
-<div class="nav-logo">
-<a href="index.html"><img loading="lazy" alt="Favicon" src="NAV/Favicon.png"/></a>
-<a href="index.html"><img loading="lazy" alt="慢步·遊日記" src="NAV/慢步·遊日記.png"/></a>
-</div>
-<ul class="nav-menu">
-<li><a href="About.html">關於</a></li>
-</ul>
-</nav>
+<!-- Nav -->
+ <div id="nav-placeholder"></div>
 <div class="hero">
 <img loading="lazy" alt="仙台城跡" src="https://image.stepsdiary.cc/2025/cover-photos/JUL27-cover.webp"/>
 <div class="hero-content">
@@ -427,17 +420,9 @@
         ￥1,580 - ￥1,320 = ￥260
         </p>
 <p>使用仙台一日券節省了￥260💴的交通費用，好像不是太化算呢。票券最遠可以至隔鄰山形縣的<strong>山寺</strong>（從仙台站來回是￥1720💴）、後天會去的<strong>松島海岸</strong>（來回是￥840💴）等。建議讀者先計算費用再考慮是不是要購買。</p>
-<div class="flip-pages-box">
-<div class="prev-content">
-<span class="arrow left">&lt;&lt; </span>
-<a class="prev-article-title" href="Journey20250726-miyagi-wide-area-1day-trip.html"><strong>上一篇文章：</strong><br/>宮城藏王一日遊：<br>藏王狐狸村、御釜綠水與凌空吊橋</a>
-</div>
-<div class="series-name">2025年7月至8月<br/>日本東北、關西之旅</div>
-<div class="next-content">
-<a class="next-article-title" href="Journey20250728-yonezawa-1day-history-trip.html"><strong>下一篇文章：</strong><br/>山形米澤一日遊：<br>歷史紀行與品嚐頂級米澤牛美食</a>
-<span class="arrow right"> &gt;&gt; </span>
-</div>
-</div>
+
+<div id="pagination-container"></div>
+
 <div class="giscus-container">
 <script src="https://giscus.app/client.js"
         data-repo="lhyricky/stepsdiary"
@@ -459,16 +444,11 @@
 <button class="to-top-btn" onclick="scrollToTop()"><img loading="lazy" class="arrow-upward" src="NAV/arrow-upward.png"/></button> <!-- 用 ↑ 符號做圖示，你可以換成文字如 "TOP" -->
 </div>
 </div>
-<footer class="footer">
-<div class="sns-icons">
-<a href="https://www.facebook.com/profile.php?id=61582055970174" target="_blank"><img loading="lazy" alt="Facebook" class="sns-icon" src="Footer/Facebook.png"/></a>
-<a href="https://www.instagram.com/stepsdiary.cc/" target="_blank"><img loading="lazy" alt="Instagram" class="sns-icon" src="Footer/Instagram.webp"/></a>
-</div>
-<div class="footer-text">
-<p>Copyright © 2025 慢步·遊日記 版權所有。</p>
-</div>
-</footer>
+<div id="footer-placeholder"></div>
+<script src="call-nav.js"></script>
 <script src="Scroll-advice-and-to-top-button.js"></script>
 <script src="tag-buttons.js"></script>
+<script src="call-pagination.js"></script>
+<script src="call-footer.js"></script>
 </body>
 </html>

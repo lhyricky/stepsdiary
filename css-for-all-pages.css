@@ -17,9 +17,26 @@
         */
 
         * {
-            margin: 0px;
+            
             font-family: 'GenSenRounded-M', 'sans-serif';
             
+        }
+
+        /* 不要用全域 * 去設定 margin，請精準指定 */
+        body, h1, h2, h3, p, ul {
+        margin: 0;
+        padding: 0;
+        }
+
+        /* 讓被 fixed 遮住的第一個區塊向下推開 */
+        body {
+            padding-top: 60px; /* 數值可依你的導覽列實際高度微調 */
+        }
+
+        @media (max-width: 675px) {
+            body {
+            padding-top: 50px; /* 數值可依你的導覽列實際高度微調 */
+            }
         }
 
         strong {
