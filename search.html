@@ -355,37 +355,95 @@
         }
 
         /* 確保文章卡片內的文字與排版在手機完美縮放 */
-.post-item {
-    width: 100%;
-    box-sizing: border-box;
-}
+        .post-item {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.post-text-content {
-    word-break: break-word; /* 防止長英文字串或網址撐闊版面 */
-    overflow: hidden;
-}
+        .post-text-content {
+            word-break: break-word; /* 防止長英文字串或網址撐闊版面 */
+            overflow: hidden;
+        }
 
-/* 針對細螢幕（如手機）進一步優化字體與間距大小 */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 1.6em;
-        padding: 0 15px;
-    }
-    
-    .search-form {
-        padding: 0 10px;
-        gap: 8px;
-    }
+        /* 針對細螢幕（如手機）進一步優化字體與間距大小 */
+        @media (max-width: 675px) {
+            h1 {
+                font-size: 1.5em;
+                margin: 15px 0 10px 0;
+                padding: 0 10px;
+                line-height: 1.3;
+            }
+            
+            .search-form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px; /* 增加所有子元素之間的垂直距離 */
+                padding: 0 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
 
-    .post-item {
-        padding: 15px;
-        gap: 15px;
-    }
+            .post-item {
+                padding: 15px;
+                gap: 15px;
+                margin: 12px auto;
+            }
 
-    .post-item h3 {
-        font-size: 1.25em;
-    }
-}
+            .post-item h3 {
+                font-size: 1.2em;
+                margin-bottom: 8px;
+            }
+
+            /* 4. 搜尋輸入框容器與按鈕寬度調整 */
+            .search-input-wrapper {
+                width: 100%;
+                min-width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+                padding: 14px 35px 14px 15px;
+            }
+
+            /* 藍色搜尋按鈕回復原本長度，並在窄屏時置中跌落下一行 */
+            .search-button {
+                width: auto;
+                padding: 12px 24px;
+                align-self: center;
+            }
+
+            /* 6. 調整 Radio 按鈕（只搜尋標題 / 全文搜尋）的行距與排版 */
+            .search-options {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin: 5px 0 10px 0;
+                width: 100%;
+            }
+
+            /* 7. 黃色排序下拉選單改為 100% 寬度，方便手機點選 */
+            .sort-dropdown {
+                width: fit-content;
+                max-width: 100%;
+                display: block;
+                margin: 0 auto; /* 如果你想佢喺手機置中顯示 */
+            }
+
+            /* 8. 文章總數與黃色分隔線間距 */
+            .post-count {
+                margin-top: 10px;
+                margin-bottom: 15px;
+            }
+
+            .yellow-line {
+                margin: 0 auto 20px auto;
+            }
+            
+            .search-button, .home-button {
+                box-sizing: border-box;
+                justify-content: center !important; /* 強制文字同 icon 置中貼近 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -410,8 +468,8 @@
                         <img src="NAV/search-icon.png" alt="搜尋" class="btn-icon">
                     </button>
                     <div class="search-options">
-                        <label><input type="radio" name="searchScope" value="title" checked> 只搜尋標題</label>
-                        <label><input type="radio" name="searchScope" value="all"> 全文搜尋</label>
+                        <label><input type="radio" name="searchScope" value="all" checked> 全文搜尋</label>
+                        <label><input type="radio" name="searchScope" value="title"> 只搜尋標題</label>
                     </div>
                     <select id="sortSelect" class="sort-dropdown">
                         <option value="newest">按旅遊日期排列（最新）</option>
@@ -437,172 +495,172 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-const searchQuery = decodeURIComponent(urlParams.get('q') || '').trim();
+        const searchQuery = decodeURIComponent(urlParams.get('q') || '').trim();
 
-const pageTitleEl = document.getElementById('pageTitle');
-const postCountEl = document.getElementById('postCount');
-const postListEl = document.getElementById('postList');
-const searchInputBox = document.getElementById('searchInputBox');
-const sortSelect = document.getElementById('sortSelect');
+        const pageTitleEl = document.getElementById('pageTitle');
+        const postCountEl = document.getElementById('postCount');
+        const postListEl = document.getElementById('postList');
+        const searchInputBox = document.getElementById('searchInputBox');
+        const sortSelect = document.getElementById('sortSelect');
 
-if (searchQuery) {
-    searchInputBox.value = searchQuery;
-    pageTitleEl.innerHTML = `含有關鍵字： <span class="highlight-keyword">${searchQuery}</span> 的文章`;
-}
+        if (searchQuery) {
+            searchInputBox.value = searchQuery;
+            pageTitleEl.innerHTML = `含有關鍵字： <span class="highlight-keyword">${searchQuery}</span> 的文章`;
+        }
 
-// 將日期格式化為 YYYY-MM-DD
-function formatTravelDate(dateVal) {
-    if (!dateVal) return '未知';
-    const str = String(dateVal);
-    if (str.length === 8) {
-        return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
-    }
-    return dateVal;
-}
+        // 將日期格式化為 YYYY-MM-DD
+        function formatTravelDate(dateVal) {
+            if (!dateVal) return '未知';
+            const str = String(dateVal);
+            if (str.length === 8) {
+                return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
+            }
+            return dateVal;
+        }
 
-// 渲染文章列表函數（包含 description 顯示）
-function renderPosts(posts, emptyMessage) {
-    postCountEl.textContent = `共有 ${posts.length} 篇`;
+        // 渲染文章列表函數（包含 description 顯示）
+        function renderPosts(posts, emptyMessage) {
+            postCountEl.textContent = `共有 ${posts.length} 篇`;
 
-    if (posts.length === 0) {
-        postListEl.innerHTML = `<div class="no-result">${emptyMessage}</div>`;
-        return;
-    }
-
-    const html = posts.map(post => `
-        <div class="post-item">
-            <div class="post-text-content">
-                <div>
-                    <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
-                    <div class="post-meta">發布於 ${post.writedate || '未知'} | 旅遊日期 ${formatTravelDate(post.dayoftravel)}</div>
-                    <p class="post-desc" style="color: #666; font-size: 0.95em; margin: 8px 0 12px 0; line-height: 1.4;">${post.description || ''}</p>
-                </div>
-                <div class="post-tags">
-                    ${Array.isArray(post.tags) ? post.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t.trim())}" class="tag">#${t.trim()}</a>`).join('') : ''}
-                </div>
-            </div>
-            ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
-        </div>
-    `).join('');
-
-    postListEl.innerHTML = html;
-}
-
-// 執行搜尋與排序的核心邏輯
-function performSearch() {
-    if (!searchQuery) {
-        pageTitleEl.textContent = '請輸入搜尋關鍵字';
-        postListEl.innerHTML = '<div class="no-result">沒有提供任何搜尋條件</div>';
-        return;
-    }
-
-    fetch('posts.json')
-        .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
-        .then(posts => {
-            const queryLower = searchQuery.toLowerCase();
-            const searchScope = document.querySelector('input[name="searchScope"]:checked').value;
-
-            let includedPosts = [];
-            let fuseResult = [];
-
-            if (searchScope === 'title') {
-                // 只搜尋標題
-                includedPosts = posts.filter(post => {
-                    return post.title && post.title.toLowerCase().includes(queryLower);
-                });
-
-                const options = {
-                    keys: ['title'], 
-                    threshold: 0.3, 
-                    includeScore: true
-                };
-                const fuse = new Fuse(posts, options);
-                fuseResult = fuse.search(searchQuery);
-
-            } else {
-                // 全文搜尋（標題、標籤、描述、內文）
-                includedPosts = posts.filter(post => {
-                    const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
-                    const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
-                    const contentMatch = post.content && post.content.toLowerCase().includes(queryLower);
-                    const tagMatch = post.tags && post.tags.some(t => typeof t === 'string' && t.toLowerCase().includes(queryLower));
-                    return titleMatch || descMatch || contentMatch || tagMatch;
-                });
-
-                const options = {
-                    keys: ['title', 'tags', 'description', 'content'], 
-                    threshold: 0.5, 
-                    includeScore: true
-                };
-                const fuse = new Fuse(posts, options);
-                fuseResult = fuse.search(searchQuery);
+            if (posts.length === 0) {
+                postListEl.innerHTML = `<div class="no-result">${emptyMessage}</div>`;
+                return;
             }
 
-            // 合併結果並去重複
-            const combinedMap = new Map();
-            [...includedPosts, ...fuseResult.map(r => r.item)].forEach(post => {
-                if (post.url && !combinedMap.has(post.url)) {
-                    combinedMap.set(post.url, post);
+            const html = posts.map(post => `
+                <div class="post-item">
+                    <div class="post-text-content">
+                        <div>
+                            <h3><a href="${post.url}" target="_blank">${post.title}</a></h3>
+                            <div class="post-meta">發布於 ${post.writedate || '未知'} | 旅遊日期 ${formatTravelDate(post.dayoftravel)}</div>
+                            <p class="post-desc" style="color: #666; font-size: 0.95em; margin: 8px 0 12px 0; line-height: 1.4;">${post.description || ''}</p>
+                        </div>
+                        <div class="post-tags">
+                            ${Array.isArray(post.tags) ? post.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t.trim())}" class="tag">#${t.trim()}</a>`).join('') : ''}
+                        </div>
+                    </div>
+                    ${post.picture ? `<div class="post-picture"><img src="${post.picture}" alt="${post.title}" loading="lazy"></div>` : ''}
+                </div>
+            `).join('');
+
+            postListEl.innerHTML = html;
+        }
+
+        // 執行搜尋與排序的核心邏輯
+        function performSearch() {
+            if (!searchQuery) {
+                pageTitleEl.textContent = '請輸入搜尋關鍵字';
+                postListEl.innerHTML = '<div class="no-result">沒有提供任何搜尋條件</div>';
+                return;
+            }
+
+            fetch('posts.json')
+                .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
+                .then(posts => {
+                    const queryLower = searchQuery.toLowerCase();
+                    const searchScope = document.querySelector('input[name="searchScope"]:checked').value;
+
+                    let includedPosts = [];
+                    let fuseResult = [];
+
+                    if (searchScope === 'title') {
+                        // 只搜尋標題
+                        includedPosts = posts.filter(post => {
+                            return post.title && post.title.toLowerCase().includes(queryLower);
+                        });
+
+                        const options = {
+                            keys: ['title'], 
+                            threshold: 0.3, 
+                            includeScore: true
+                        };
+                        const fuse = new Fuse(posts, options);
+                        fuseResult = fuse.search(searchQuery);
+
+                    } else {
+                        // 全文搜尋（標題、標籤、描述、內文）
+                        includedPosts = posts.filter(post => {
+                            const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
+                            const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
+                            const contentMatch = post.content && post.content.toLowerCase().includes(queryLower);
+                            const tagMatch = post.tags && post.tags.some(t => typeof t === 'string' && t.toLowerCase().includes(queryLower));
+                            return titleMatch || descMatch || contentMatch || tagMatch;
+                        });
+
+                        const options = {
+                            keys: ['title', 'tags', 'description', 'content'], 
+                            threshold: 0.5, 
+                            includeScore: true
+                        };
+                        const fuse = new Fuse(posts, options);
+                        fuseResult = fuse.search(searchQuery);
+                    }
+
+                    // 合併結果並去重複
+                    const combinedMap = new Map();
+                    [...includedPosts, ...fuseResult.map(r => r.item)].forEach(post => {
+                        if (post.url && !combinedMap.has(post.url)) {
+                            combinedMap.set(post.url, post);
+                        }
+                    });
+
+                    let matchedPosts = Array.from(combinedMap.values());
+
+                    // 排序與渲染函數
+                    function sortAndRender() {
+                        const sortType = sortSelect.value;
+
+                        matchedPosts.sort((a, b) => {
+                            if (sortType === 'oldest') {
+                                return new Date(a.dayoftravel) - new Date(b.dayoftravel);
+                            } else {
+                                return new Date(b.dayoftravel) - new Date(a.dayoftravel);
+                            }
+                        });
+
+                        renderPosts(matchedPosts, `找不到與「${searchQuery}」相關的文章`);
+                    }
+
+                    sortAndRender();
+                    sortSelect.onchange = sortAndRender;
+                })
+                .catch(err => {
+                    console.error(err);
+                    postListEl.innerHTML = '<div class="no-result">載入文章資料失敗，請稍後再試</div>';
+                });
+        }
+
+        // 頁面載入時執行搜尋
+        performSearch();
+
+        // 清除按鈕邏輯
+        const clearBtn = document.getElementById('clearBtn');
+
+        function toggleClearBtn() {
+            if (searchInputBox.value.length > 0) {
+                clearBtn.style.display = 'block';
+            } else {
+                clearBtn.style.display = 'none';
+            }
+        }
+
+        searchInputBox.addEventListener('input', toggleClearBtn);
+        toggleClearBtn();
+
+        clearBtn.addEventListener('click', () => {
+            searchInputBox.value = '';
+            toggleClearBtn();
+            searchInputBox.focus();
+        });
+
+        // 當切換搜尋範圍選項時自動重新搜尋
+        document.querySelectorAll('input[name="searchScope"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (searchQuery) {
+                    performSearch();
                 }
             });
-
-            let matchedPosts = Array.from(combinedMap.values());
-
-            // 排序與渲染函數
-            function sortAndRender() {
-                const sortType = sortSelect.value;
-
-                matchedPosts.sort((a, b) => {
-                    if (sortType === 'oldest') {
-                        return new Date(a.dayoftravel) - new Date(b.dayoftravel);
-                    } else {
-                        return new Date(b.dayoftravel) - new Date(a.dayoftravel);
-                    }
-                });
-
-                renderPosts(matchedPosts, `找不到與「${searchQuery}」相關的文章`);
-            }
-
-            sortAndRender();
-            sortSelect.onchange = sortAndRender;
-        })
-        .catch(err => {
-            console.error(err);
-            postListEl.innerHTML = '<div class="no-result">載入文章資料失敗，請稍後再試</div>';
         });
-}
-
-// 頁面載入時執行搜尋
-performSearch();
-
-// 清除按鈕邏輯
-const clearBtn = document.getElementById('clearBtn');
-
-function toggleClearBtn() {
-    if (searchInputBox.value.length > 0) {
-        clearBtn.style.display = 'block';
-    } else {
-        clearBtn.style.display = 'none';
-    }
-}
-
-searchInputBox.addEventListener('input', toggleClearBtn);
-toggleClearBtn();
-
-clearBtn.addEventListener('click', () => {
-    searchInputBox.value = '';
-    toggleClearBtn();
-    searchInputBox.focus();
-});
-
-// 當切換搜尋範圍選項時自動重新搜尋
-document.querySelectorAll('input[name="searchScope"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-        if (searchQuery) {
-            performSearch();
-        }
-    });
-});
     </script>
     <script src="call-nav.js"></script>
     <script src="call-footer.js"></script>
