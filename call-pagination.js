@@ -1,12 +1,21 @@
 fetch('posts.json')
     .then(res => res.json())
     .then(posts => {
-        // 取得目前頁面的檔名
-        const currentPath = window.location.pathname.split('/').pop();
+        // 取得目前頁面的檔名，並轉成細寫、去走 .html 尾綴（加強容錯率）
+        const rawPath = window.location.pathname.split('/').pop().toLowerCase();
+        const currentPathClean = rawPath.replace('.html', '');
         
-        // 找出目前文章在 posts.json 中的資料
-        const currentPost = posts.find(post => post.url === currentPath);
-        if (!currentPost) return;
+        // 嘗試用多種方式去配對 posts.json 入面嘅 url
+        const currentPost = posts.find(post => {
+            const postUrl = post.url ? post.url.toLowerCase() : '';
+            const postUrlClean = postUrl.replace('.html', '');
+            return postUrl === rawPath || postUrlClean === currentPathClean || rawPath.includes(postUrlClean);
+        });
+
+        if (!currentPost) {
+            console.warn("搵唔到對應嘅文章資料，當前網址檔名係:", rawPath);
+            return;
+        }
 
         const currentDay = Number(currentPost.dayoftravel);
         const currentSeries = currentPost.series;
@@ -16,7 +25,6 @@ fetch('posts.json')
         let nextPost = null;
 
         posts.forEach(post => {
-            // 必須屬於同一個系列，先至有資格做上下篇
             if (post.series === currentSeries) {
                 const postDay = Number(post.dayoftravel);
                 if (postDay < currentDay) {
@@ -49,7 +57,7 @@ fetch('posts.json')
 
         let html = '<div class="flip-pages-box">';
 
-        // 上一篇（如果係系列第一篇、搵唔到 prevPost，呢個區塊就會係空白）
+        // 上一篇
         html += '<div class="prev-content">';
         if (prevPost) {
             html += `<span class="arrow left">← </span>`;
@@ -62,7 +70,7 @@ fetch('posts.json')
         // 系列名稱 (Series)
         html += `<div class="series-name">${formatSeries(currentPost.series)}</div>`;
 
-        // 下一篇（如果係系列最後一篇、搵唔到 nextPost，呢個區塊就會係空白）
+        // 下一篇
         html += '<div class="next-content">';
         if (nextPost) {
             html += `<a class="next-article-title" href="${nextPost.url}">`;
