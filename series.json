@@ -1,17 +1,17 @@
 [
   {
     "series": "2025-日本東北、關西之旅",
-    "image": "series-image/2025-jp-northeast-kansai.webp",
+    "image": "https://image.stepsdiary.cc/series-image/2025-jp-northeast-kansai.webp",
     "description": "橫跨日本東北與關西的 2025 盛夏大長征。從福島與仙台的震災歷史行旅、藏王自然絕景與頂級米澤牛，到跨越地域的移動、大阪世博盛會，以及宇治、姬路的文化漫遊！"
   },
     {
     "series": "2024-日本關東、長野之旅",
-    "image": "series-image/2024-jp-kanto-nagano.webp",
+    "image": "https://image.stepsdiary.cc/series-image/2024-jp-kanto-nagano.webp",
     "description": "2024 年日本自由行全紀錄，從東京鐵道朝聖到J.League 激戰，再深入長野上高地健行、國寶松本城探訪到觀賞諏訪湖美景！"
   },
     {
     "series": "2026-日本北海道之旅",
-    "image": "series-image/2026-jp-hokkaido.webp",
+    "image": "https://image.stepsdiary.cc/series-image/2026-jp-hokkaido.webp",
     "description": "2026 盛夏北海道深度行。從札幌小樽漫步、乘搭美瑛慢車號與欣賞璀璨煙花大會，到旭山動物園、函館五稜郭、洞爺湖絕景，最後以富士五湖夏日巡禮與東京漫步作結。"
   }
 ]
