@@ -112,16 +112,12 @@
 <span data-network="whatsapp"></span>
 </div>
 <!-- ShareThis ENDS -->
-<div class="directory">
-<p style="text-align: center;"><strong>目錄</strong></p>
-<ol>
-<li><a href="#intro">旅行簡介</a></li>
-<li><a href="#part1">臨時急轉彎的計劃</a></li>
-<li><a href="#part2">小岩井牧歌：牛舍奶香與馬車狂奔</a></li>
-<li><a href="#part3">午餐：三色Pizza芝士盛宴</a></li>
-<li><a href="#part4">赤煉瓦迴響：木地板下的百年銀行秘辛</a></li>
-</ol>
+
+<div class="directory" id="directory-container">
+    <p style="text-align: center;"><strong>目錄</strong></p>
+    <!-- JS 會自動將生成好的 <ol> 填入此處 -->
 </div>
+
 <div class="main-paragraph">
 <h2 id="intro">旅行簡介</h2>
 <p><strong>旅行日期：2025年7月30日，星期三</strong>    ☀️</p>
@@ -385,6 +381,7 @@
 <script src="call-header.js"></script>
 <script src="Scroll-advice-and-to-top-button.js"></script>
 <script src="tag-buttons.js"></script>
+<script src="generate-directory.js"></script>
 <script src="call-pagination.js"></script>
 <script src="call-footer.js"></script>
 </body>
