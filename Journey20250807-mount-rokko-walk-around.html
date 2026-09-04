@@ -94,18 +94,11 @@
 </div>
 <div class="scroll-advice">碌落去睇更多內容<br/>↓</div>
 <header>
-<h1></h1>
-<div class="header-wrapper">
-<div class="publish-date"><p style="font-size: 15px;">發佈日期：2025年12月4日<br/>最後更新日期：2026年8月28日</p></div>
-</div>
-<div class="tag-buttons">
-<span class="tag-button" data-tag="日本">#日本</span>
-<span class="tag-button" data-tag="兵庫縣">#兵庫縣</span>
-<span class="tag-button" data-tag="神戶">#神戶</span>
-<span class="tag-button" data-tag="六甲山">#六甲山</span>
-<span class="tag-button" data-tag="近畿地方">#近畿地方</span>
-<span class="tag-button" data-tag="自由行">#自由行</span>
-</div>
+    <h1></h1> <!-- 如果標題都想由 json 讀取可以順便留吉，唔係嘅話保留你原本嘅 <h1> -->
+    <div class="header-wrapper">
+        <div class="publish-date" id="publish-date-container"></div>
+    </div>
+    <div class="tag-buttons" id="tag-buttons-container"></div>
 </header>
 <div class="blank-page">
     <!-- ShareThis BEGINS -->
@@ -459,6 +452,7 @@
 </div>
 <div id="footer-placeholder"></div>
 <script src="call-nav.js"></script>
+<script src="call-header.js"></script>
 <script src="Scroll-advice-and-to-top-button.js"></script>
 <script src="tag-buttons.js"></script>
 <script src="call-pagination.js"></script>

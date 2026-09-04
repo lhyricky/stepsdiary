@@ -68,7 +68,7 @@
  <!-- Nav -->
  <div id="nav-placeholder"></div>
 
- <div class="blank-page">
+ <div class="inside-index-page">
  <section class="all-articles-section">
     <!--
  <h2>所有遊記文章</h2>
@@ -84,19 +84,21 @@
  <img class="banner" src="NAV/My Website banner.png" alt="慢步·遊日記">
  </div>
 
-
+ <!-- 簡短網站初衷區塊 -->
+ <section class="site-intro-section" style="max-width: 800px; margin: 30px auto; padding: 20px 30px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center;">
+     <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0;">
+         這裏記錄了我獨自慢步旅行的足跡與點滴，希望建立一個專屬的回憶庫，陪伴我走過未來的每一個風景。想了解更多關於這個網站的由來與初衷？歡迎前往<a href="About.html" style="color: #4adbed; text-decoration: none; font-weight: bold;">關於頁面</a>查看。
+     </p>
+ </section>
 
  <!-- 以下你原本所有文章列表完全不變 -->
  <section class="latest-articles-section">
  <h2>最新遊記文章</h2>
  <div class="yellow-line"></div> 
-
  <div id="posts-container"></div>
-
-
  </section>
 
- 
+ <div id="series-container"></div>
 
  </div>
 
@@ -106,7 +108,9 @@
  <script src="call-nav.js"></script>
  <script src="load-latest-posts.js"></script>
  <script src="bento-grid.js"></script>
+ <script src="series-slider.js"></script>
  <script src="tag-buttons.js"></script>
  <script src="call-footer.js"></script>
+
 </body>
 </html>
