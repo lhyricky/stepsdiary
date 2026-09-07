@@ -33,7 +33,7 @@
             padding-top: 60px; /* 數值可依你的導覽列實際高度微調 */
         }
 
-        @media (max-width: 675px) {
+        @media (max-width: 1024px) {
             body {
             padding-top: 50px; /* 數值可依你的導覽列實際高度微調 */
             }

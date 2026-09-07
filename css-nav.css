@@ -2,10 +2,6 @@
 
 
 
-/* 確保頁面橫向不會溢出，維護 sticky 運作 */
-html, body {
-    overflow-x: hidden;
-}
 
 
 .nav {
