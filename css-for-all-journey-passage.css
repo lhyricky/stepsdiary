@@ -779,7 +779,7 @@
             .sidebar-directory,
             .sidebar-latest-section {
                 max-width: 400px;
-                margin: 20px auto;
+                margin: 20px;
             }
 
             .article-body-content {
