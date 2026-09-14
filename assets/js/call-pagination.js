@@ -10,7 +10,7 @@ fetch('../../posts.json')
         console.log("🟢 成功讀取 posts.json，總文章數:", posts.length);
         const currentFile = window.location.pathname.split('/').pop().toLowerCase();
         console.log("🟢 解析出來當前檔名:", currentFile);
-        
+
         const currentPost = posts.find(post => {
             if (!post.url) return false;
             const postFile = post.url.split('/').pop().toLowerCase();
@@ -55,16 +55,12 @@ fetch('../../posts.json')
             return series.replace('-', '<br>');
         }
 
-        // 修正連結：若 JSON 內 url 係形如 published/2025/xxx.html，在 published/2025/ 內應指向同級或用相應相對路徑
         function getSafeUrl(url) {
             if (!url) return '#';
-            // 如果 url 係全路徑 /published/...，由 published/2025/ 向上兩級再入去
             if (url.startsWith('/')) {
                 return '../../' + url.replace(/^\/+/, '');
             }
-            // 如果原本就是相對路徑（例如 published/2025/xxx.html），在 published/2025/ 內連過去會變重複，修正為直接抓檔名或相對同級
-            const cleanFile = url.split('/').pop();
-            return cleanFile;
+            return url.split('/').pop();
         }
 
         const container = document.getElementById('pagination-container');
