@@ -1,7 +1,8 @@
-fetch('/posts.json')
+// 用相對路徑向上跳兩級尋找根目錄嘅 posts.json（由 published/2025/ 跳到根目錄要兩層 ../../）
+// 或者用絕對路徑配合 GitHub Pages repo base 修正，最穩陣係相對路徑向上跳：
+fetch('../../posts.json')
     .then(res => res.json())
     .then(posts => {
-        // 1. 直接拎當前網址最尾嘅檔名嚟對應
         const currentFile = window.location.pathname.split('/').pop().toLowerCase();
         
         const currentPost = posts.find(post => {
@@ -18,7 +19,6 @@ fetch('/posts.json')
         const currentDay = Number(currentPost.dayoftravel);
         const currentSeries = currentPost.series;
 
-        // 2. 嚴格根據 series 同 dayoftravel 搵前後篇
         let prevPost = null;
         let nextPost = null;
 
@@ -37,25 +37,25 @@ fetch('/posts.json')
             }
         });
 
-        // 處理 title 換行函數：在「：」之後加 <br>
         function formatTitle(title) {
             if (!title) return '';
             return title.replace('：', '：<br>');
         }
 
-        // 處理 series：去掉「-」並換行
         function formatSeries(series) {
             if (!series) return '';
             return series.replace('-', '<br>');
         }
 
-        // 確保路徑係絕對路徑（由根目錄 / 開始，避免相對路徑疊加）
+        // 修正：因為你文章在 published/2025/，post.url 如果係相對/絕對，需要對應番跳去正確位置
+        // 假設 posts.json 裡面嘅 url 係類似 "published/2025/xxxx.html" 或 "/published/2025/xxxx.html"
         function getSafeUrl(url) {
             if (!url) return '#';
-            return '/' + url.replace(/^\/+/, '');
+            // 如果依家喺 published/2025/ 入面，指向其他同類檔案，直接用相對路徑最安全
+            // 假設 url 格式係完整由根起計嘅相對路徑，可以用相對跳層或維持原狀
+            return url.startsWith('/') ? '../../' + url.replace(/^\/+/, '') : url;
         }
 
-        // 建立 HTML 結構
         const container = document.getElementById('pagination-container');
         if (!container) return;
 

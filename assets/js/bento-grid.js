@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return p.writedate <= todayStr;
             });
 
-            // 1. 先篩選出所有 priority-recommend 為 "Y" 的文章
-            let priorityPosts = posts.filter(post => post["priority-recommend"] === "Y");
-            let otherPosts = posts.filter(post => post["priority-recommend"] !== "Y");
-            
+            // 1. 喺已過濾日期嘅 validPosts 入面篩選 priority-recommend 為 "Y" 的文章
+            let priorityPosts = validPosts.filter(post => post["priority-recommend"] === "Y");
+            let otherPosts = validPosts.filter(post => post["priority-recommend"] !== "Y");
+
             // 結合起來（確保優先的排在前面）
             let availablePosts = priorityPosts.concat(otherPosts);
 
@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 item.className = "grid-item";
 
                 const img = document.createElement("img");
-                const pictureSrc = post.picture && post.picture.startsWith("http") 
-                    ? post.picture 
+                const pictureSrc = post.picture && post.picture.startsWith("http")
+                    ? post.picture
                     : `https://image.stepsdiary.cc/${post.picture || "NAV/Cover-with-icons.jpg"}`;
-                
+
                 img.src = pictureSrc;
                 img.alt = post.title || "";
                 img.loading = "lazy";
@@ -94,11 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (post.tags && Array.isArray(post.tags) && post.tags.length > 0) {
                     const badge = document.createElement("div");
                     badge.className = "tag-badge";
-                    
+
                     // 如果有第二個就用第二個（例如：福島縣、京都府），否則用第一個
                     const tagText = post.tags.length >= 2 ? post.tags[1] : post.tags[0];
                     badge.textContent = tagText.trim();
-                    
+
                     item.appendChild(badge);
                 }
 
