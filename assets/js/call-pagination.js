@@ -1,5 +1,10 @@
 console.log("🟢 Pagination script 啟動，當前網址:", window.location.href);
 
+const getSlug = (str) => decodeURIComponent(str || '')
+    .split('/')
+    .pop()
+    .replace(/\.html?$/i, '');
+
 fetch('../../posts.json')
     .then(res => {
         console.log("🟢 fetch 狀態碼:", res.status);
@@ -8,19 +13,18 @@ fetch('../../posts.json')
     })
     .then(posts => {
         console.log("🟢 成功讀取 posts.json，總文章數:", posts.length);
-        const currentFile = window.location.pathname.split('/').pop().toLowerCase();
-        console.log("🟢 解析出來當前檔名:", currentFile);
+        const currentSlug = getSlug(window.location.pathname);
+        console.log("🟢 解析出來當前 slug:", currentSlug);
 
         const currentPost = posts.find(post => {
             if (!post.url) return false;
-            const postFile = post.url.split('/').pop().toLowerCase();
-            return postFile === currentFile;
+            return getSlug(post.url) === currentSlug;
         });
 
         console.log("🟢 配對到的 currentPost:", currentPost);
 
         if (!currentPost) {
-            console.warn("⚠️ 搵唔到對應嘅文章資料，當前檔名係:", currentFile);
+            console.warn("⚠️ 搵唔到對應嘅文章資料，當前 slug 係:", currentSlug);
             return;
         }
 
@@ -57,10 +61,7 @@ fetch('../../posts.json')
 
         function getSafeUrl(url) {
             if (!url) return '#';
-            if (url.startsWith('/')) {
-                return '../../' + url.replace(/^\/+/, '');
-            }
-            return url.split('/').pop();
+            return url.startsWith('/') ? url : '/' + url;
         }
 
         const container = document.getElementById('pagination-container');
