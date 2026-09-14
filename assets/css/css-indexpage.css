@@ -1,0 +1,551 @@
+ .banner-of-the-top {
+            display: block;
+            text-align: center;
+            
+            margin: 20px auto;
+        }
+
+        .banner {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+        }
+
+        .yellow-line {
+            width: 100px;
+            height: 3px;
+            background-color: #FFD700; /* 黃色線 */
+            margin: 0 auto 40px; /* 置中 + 下面空間 */
+        }
+
+        /* 文章列表樣式 */
+        .latest-articles-section {
+            /*max-width: 1000px;  限制寬度，唔太闊 */
+            margin: 40px 20px; /* 上方間距，自動居中 */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            
+            
+            margin: 30px 0px;
+            font-size: 2em;
+            
+        }
+
+        /* 每篇文章格仔 - 左右布局 */
+        .passage-info {
+            background: white;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 輕陰影，卡片感 */
+            transition: box-shadow 0.3s ease;
+            display: flex; /* 新增：flex布局 */
+            gap: 20px; /* 左右間距 */
+            align-items: flex-start; /* 頂部對齊 */
+        }
+
+        .passage-info:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15); /* hover加陰影 */
+        }
+
+        /* 左邊文字區 */
+        .passage-text {
+            flex: 1; /* 佔剩餘空間 */
+            margin: 0;
+        }
+
+        .passage-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .passage-info h3 a {
+            color: #4adbed; /* 藍色link */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .passage-info h3 a:hover {
+            opacity: 0.8;
+        }
+
+        .passage-info .post-date {
+            color: #666;
+            font-size: 0.95em;
+            
+            font-weight: 500;
+            margin-bottom: 10px;
+            
+        }
+
+        /* 新增：預覽文字 */
+        .passage-info .preview {
+            color: #555;
+            font-size: 0.95em;
+            margin: 0 0 16px 0;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 限制3行，省略號 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Tag buttons */
+        .passage-info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .passage-info .tag-button {
+            background: #ffc709; /* 黃色底 */
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px; /* 圓角 */
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration:none;
+        }
+
+        .passage-info .tag-button:hover {
+            opacity: 0.8;
+            
+        }
+
+        /* 右邊圖片 */
+        .passage-info .article-thumb {
+            flex: 0 0 30%; /* 固定佔30%寬度，唔伸縮 */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            object-fit: cover;
+            max-width: 350px; /* 大螢幕上限，防太闊 */
+        }
+
+        /* 小螢幕：堆疊布局 */
+        @media (max-width: 768px) {
+            .passage-info {
+                flex-direction: column; /* 垂直堆疊 */
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .passage-info h3 {
+                font-size: 1.3em;
+            }
+            .passage-info .article-thumb {
+                width: 100%; /* 全寬 */
+                max-width: 300px; /* 唔太闊 */
+                align-self: center; /* 圖片居中 */
+            }
+        }
+
+
+  
+    /* ─── Bento Grid：改為每 5 個為一個循環 ─── */
+    .grids {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 220px;
+        gap: 16px;
+        /*max-width: 1400px;*/
+        margin: 0px 0px 40px;
+        width: 100%;
+    }
+
+    .grid-item {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        align-items: stretch; /* 強制內部元素撐滿格子高度 */
+    }
+
+    .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        flex: 1; /* 確保圖片作為主體撐起高度，不會變黑 */
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+    }
+
+    .grid-item:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.8);
+    }
+
+    .title-overlay {
+        position: absolute;
+        bottom: 0; 
+        left: 0; 
+        right: 0;
+        padding: 14px 12px 12px;       /* 稍微收窄 padding，爭取更多文字空間 */
+        background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+        color: white;
+        font-size: 0.9rem;           /* 稍微調小一點點，避免過長被卡 */
+        font-weight: bold;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        z-index: 2;
+        line-height: 1.2;            /* 收緊行高，讓兩行更緊湊 */
+        display: -webkit-box;
+        -webkit-line-clamp: 4;        
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        opacity: 0.95;
+        transition: opacity 0.3s ease;
+        pointer-events: none; /* 讓滑鼠穿透標題，確保點擊到link */
+    }
+
+    /* 針對較窄螢幕的額外優化：縮小字體以防「赤煉瓦舊夢」被切 */
+    @media (max-width: 1100px) {
+        .title-overlay {
+            font-size: 0.88rem;       /* 在中小型電腦螢幕自動微調字體 */
+            padding: 14px 12px 12px;
+        }
+    }
+
+    .grid-item:hover .title-overlay {
+        opacity: 1;
+    }
+
+    .grid-item-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        text-decoration: none;
+    }
+
+    /* ─── 5的倍數循環規則 ─── */
+    /* 每 5 篇文章為一個循環群組： */
+    .grids .grid-item:nth-child(5n+1) {
+        grid-column: span 2;
+        grid-row: span 2; /* 每組的第一篇是大正方形（2x2） */
+    }
+    .grids .grid-item:nth-child(5n+4) {
+        grid-row: span 2; /* 每組的第四篇是縱向長條（高度變高） */
+    }
+
+    /* ─── 響應式調整（手機與平板） ─── */
+    @media (max-width: 900px) {
+        .grids {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 180px;
+        }
+        .grids .grid-item:nth-child(5n+1),
+        .grids .grid-item:nth-child(5n+4) {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .grids {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 250px;
+        }
+    }
+
+    .grid-item .tag-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        height: 30px;
+        padding: 5px 12px;
+        background: #4adbed;
+        color: #ffffff !important;        /* 強制白色文字，確保睇到 */;
+        border-radius: 15px;
+        font-size: 0.85em;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        z-index: 4; /* 確保浮在圖片上方、在標題底下 */
+        pointer-events: none; /* 永遠不可以被點擊 */
+    }
+    /* 讓背景圖 div 絕對定位並撐滿整個 grid-item */
+    .grid-img-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+        z-index: 1; /* 放在最底层 */
+    }
+
+    .grid-item:hover .grid-img-bg {
+        transform: scale(1.06);
+        filter: brightness(0.8);
+    }
+
+    .series-container {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 20px;
+}
+
+    .series-slider-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 1100px; /* 依照你的版面微調總寬度 */
+    margin: 0 auto;
+    overflow: hidden; /* 關鍵：切掉超出 3 張以外的任何卡片 */
+}
+
+/* 滑動軌道 */
+#seriesTrack {
+    display: flex;
+    gap: 20px; /* 卡片間距 */
+    overflow-x: auto; /* 保留滾動功能供 JS 控制，但外層會 hidden 掉 */
+    scroll-behavior: smooth;
+    width: 100%;
+    scrollbar-width: none; /* Firefox 隱藏捲軸 */
+    transition: opacity 0.2s ease-in-out; /* 增加這行以實現漸變效果 */
+}
+#seriesTrack::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 隱藏捲軸 */
+}
+
+.series-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.series-content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: #fff;
+    text-align: center;
+}
+
+.series-title {
+    font-size: 30px;
+    
+    color: white;
+    margin: 0px 0px 30px;
+    
+}
+
+.series-description {
+    font-size: 15px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+/* 桌面版外框與左右箭咀定位 */
+.series-slider-outer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px; /* 預留空間給左右絕對定位的按鈕 */
+}
+
+.series-slider-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.series-track {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.series-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 隱藏捲軸 */
+}
+
+.series-card {
+    background: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    flex: 0 0 calc((100% - 40px) / 3);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+}
+
+.series-card:hover {
+    filter: brightness(0.95);
+}
+
+.series-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+
+.series-card h4 {
+    padding: 12px;
+    font-size: 16px;
+    margin: 0;
+    text-align: left;
+    /*color: #4adbed;*/
+}
+
+/* 桌面版左右按鈕（黃底白字，絕對定位在兩側） */
+.series-slider-outer .series-prev-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.series-slider-outer .series-next-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.series-nav-btn {
+    background-color: #4adbed !important; /* 如果你要黃底可改為 #f1c40f */
+    background-color: #ffc709 !important; 
+    color: #ffffff !important;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease;
+    z-index: 10;
+}
+
+.series-nav-btn:hover {
+    filter: brightness(1.15);
+}
+
+/* 預設隱藏手機版專用按鈕區，桌面版用絕對定位 */
+.series-nav-controls {
+    display: none;
+}
+
+.series-prev-btn {
+    left: -55px;
+}
+
+.series-next-btn {
+    right: -55px;
+}
+
+/* 按鈕：黃底白字，Hover 變亮 */
+.series-prev-btn,
+.series-next-btn {
+    background-color: #f1c40f !important; /* 黃色底 */
+    color: #ffffff !important;            /* 白字 */
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, filter 0.2s ease;
+    z-index: 10;
+}
+
+.series-prev-btn:hover,
+.series-next-btn:hover {
+    filter: brightness(1.15); /* Hover 時變亮 */
+}
+
+/* ================= 響應式：手機版（小於 675px） ================= */
+@media (max-width: 675px) {
+    .series-slider-outer {
+        padding: 0; /* 移除桌面版兩側留白 */
+    }
+
+    /* 隱藏桌面版的左右絕對定位按鈕 */
+    .series-slider-outer .series-prev-btn,
+    .series-slider-outer .series-next-btn {
+        display: none;
+    }
+
+    /* Track 改為垂直排列三篇文章 */
+    .series-track {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* 手機版卡片：橫向排列（左圖右標題，白底） */
+    .series-card {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row; /* 左圖右文 */
+        align-items: center;
+        background: #ffffff; /* 白底 */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .series-card img {
+        width: 110px; /* 左側細細幅圖片 */
+        height: 80px;
+        flex-shrink: 0;
+    }
+
+    .series-card h4 {
+        padding: 10px 14px;
+        font-size: 15px;
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    /* 顯示底部按鈕區，並置中排列 */
+    .series-nav-controls {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+/* 當文章數量為 0 時的預留高度與提示文字樣式 */
+.series-empty-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px; /* 剛好配合原本卡片加圖片的高度空間 */
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    letter-spacing: 2px;
+}
+
+.inside-index-page {
+    margin: 0 auto;
+}
+
+.series-total-count {
+    margin-bottom: 15px;
+}

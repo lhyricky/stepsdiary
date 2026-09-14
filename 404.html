@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 頁面未找到 - 慢步·遊日記</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/Favicon.png">
+    <link rel="stylesheet" href="assets/css/css-for-all-pages.css">
+    <link rel="stylesheet" href="assets/css/css-nav.css">
+    <link rel="stylesheet" href="assets/css/css-footer.css">
+    <style>
+        .banner-of-the-top {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .banner {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            width: 800px;
+            height: auto;
+        }
+
+        .error-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .error-message {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .home-button {
+            background-color: #4adbed;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .home-button:hover {
+            opacity: 0.8;
+        }
+
+        /* 讓按鈕內部使用 Flexbox，確保圖片同文字水平置中、間距適中 */
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px; /* 圖標同文字之間的距離 */
+        }
+
+        /* 控制按鈕入面圖片的大小 */
+        .btn-icon {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+        <!-- Nav -->
+    <div id="nav-placeholder"></div>
+
+
+    <div class="blank-page">
+        <div class="banner-of-the-top">
+            <img class="banner" src="NAV/My Website banner.png" alt="慢步·遊日記">
+        </div>
+        <div class="error-content">
+            <div class="error-message">沒有找到這網頁</div>
+            <a href="index.html" class="home-button">回到首頁
+                <img src="NAV/home-icon.png" alt="首頁" class="btn-icon">
+            </a>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="assets/js/call-nav.js"></script>
+    <script src="assets/js/call-footer.js"></script>
+</body>
+
+</html>
