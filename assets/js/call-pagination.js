@@ -1,9 +1,15 @@
-// 用相對路徑向上跳兩級尋找根目錄嘅 posts.json（由 published/2025/ 跳到根目錄要兩層 ../../）
-// 或者用絕對路徑配合 GitHub Pages repo base 修正，最穩陣係相對路徑向上跳：
+console.log("🟢 Pagination script 啟動，當前網址:", window.location.href);
+
 fetch('../../posts.json')
-    .then(res => res.json())
+    .then(res => {
+        console.log("🟢 fetch 狀態碼:", res.status);
+        if (!res.ok) throw new Error(`HTTP 錯誤: ${res.status}`);
+        return res.json();
+    })
     .then(posts => {
+        console.log("🟢 成功讀取 posts.json，總文章數:", posts.length);
         const currentFile = window.location.pathname.split('/').pop().toLowerCase();
+        console.log("🟢 解析出來當前檔名:", currentFile);
         
         const currentPost = posts.find(post => {
             if (!post.url) return false;
@@ -11,8 +17,10 @@ fetch('../../posts.json')
             return postFile === currentFile;
         });
 
+        console.log("🟢 配對到的 currentPost:", currentPost);
+
         if (!currentPost) {
-            console.warn("搵唔到對應嘅文章資料，當前檔名係:", currentFile);
+            console.warn("⚠️ 搵唔到對應嘅文章資料，當前檔名係:", currentFile);
             return;
         }
 
@@ -47,17 +55,24 @@ fetch('../../posts.json')
             return series.replace('-', '<br>');
         }
 
-        // 修正：因為你文章在 published/2025/，post.url 如果係相對/絕對，需要對應番跳去正確位置
-        // 假設 posts.json 裡面嘅 url 係類似 "published/2025/xxxx.html" 或 "/published/2025/xxxx.html"
+        // 修正連結：若 JSON 內 url 係形如 published/2025/xxx.html，在 published/2025/ 內應指向同級或用相應相對路徑
         function getSafeUrl(url) {
             if (!url) return '#';
-            // 如果依家喺 published/2025/ 入面，指向其他同類檔案，直接用相對路徑最安全
-            // 假設 url 格式係完整由根起計嘅相對路徑，可以用相對跳層或維持原狀
-            return url.startsWith('/') ? '../../' + url.replace(/^\/+/, '') : url;
+            // 如果 url 係全路徑 /published/...，由 published/2025/ 向上兩級再入去
+            if (url.startsWith('/')) {
+                return '../../' + url.replace(/^\/+/, '');
+            }
+            // 如果原本就是相對路徑（例如 published/2025/xxx.html），在 published/2025/ 內連過去會變重複，修正為直接抓檔名或相對同級
+            const cleanFile = url.split('/').pop();
+            return cleanFile;
         }
 
         const container = document.getElementById('pagination-container');
-        if (!container) return;
+        console.log("🟢 搵唔搵到 pagination-container:", container);
+        if (!container) {
+            console.warn("⚠️ 搵唔到 #pagination-container 元素！");
+            return;
+        }
 
         let html = '<div class="flip-pages-box">';
 
@@ -87,5 +102,6 @@ fetch('../../posts.json')
         html += '</div>';
 
         container.innerHTML = html;
+        console.log("🟢 渲染完成！");
     })
-    .catch(err => console.error('載入翻頁資料失敗:', err));
+    .catch(err => console.error('🔴 載入翻頁資料失敗:', err));
