@@ -2,6 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// 🔒 終極防禦：建立一個絕對不會拋出 Array 錯嘅 path.join 替代品
+function safePathJoin(...args) {
+    const flattened = args.flat(Infinity); // 就算有幾多層巢狀 Array 都好，全部拍平成單一陣列
+    const stringArgs = flattened.map(arg => {
+        if (arg === null || arg === undefined) return '';
+        if (typeof arg === 'string') return arg;
+        if (Array.isArray(arg)) return String(arg[0] || '');
+        return String(arg);
+    });
+    return path.join(...stringArgs);
+}
+
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 function appendSummary(markdown) {
     if (summaryPath) {
@@ -11,8 +23,8 @@ function appendSummary(markdown) {
 }
 
 try {
-    const repoRoot = path.join(__dirname, '..');
-    const postsPath = path.join(repoRoot, 'posts.json');
+    const repoRoot = safePathJoin(__dirname, '..');
+    const postsPath = safePathJoin(repoRoot, 'posts.json');
     
     if (!fs.existsSync(postsPath)) {
         throw new Error('ERR_POSTS_JSON_MISSING: 找不到 posts.json 檔案');
@@ -25,25 +37,19 @@ try {
     let movedCount = 0;
     let movedList = [];
 
-    // 確保 posts 係一個陣列
     const postsArray = Array.isArray(posts) ? posts : [posts];
 
     for (const post of postsArray) {
         if (!post || typeof post !== 'object') continue;
 
         if (post.writedate && String(post.writedate) <= today) {
-            // 強制防禦：確保 url 絕對是字串
             let rawUrl = post.url;
-            if (Array.isArray(rawUrl)) {
-                rawUrl = rawUrl[0] || '';
-            }
-            const urlStr = typeof rawUrl === 'string' ? rawUrl : (rawUrl ? String(rawUrl) : '');
+            if (Array.isArray(rawUrl)) rawUrl = rawUrl[0] || '';
+            const urlStr = typeof rawUrl === 'string' ? rawUrl : String(rawUrl || '');
             
-            // 安全取得 filename
             const filename = urlStr ? path.basename(urlStr) : '';
             if (!filename || typeof filename !== 'string') continue;
 
-            // 動態提取年份（強制轉字串）
             let year = String(new Date().getFullYear()); 
             let urlMatched = false;
 
@@ -63,12 +69,13 @@ try {
                 }
             }
 
-            // 嚴格確保所有路徑參數全部都是純字串
             const safeYear = String(year);
             const safeFilename = String(filename);
-            const sourcePath = path.join(repoRoot, 'posts_not_yet_published', safeFilename);
-            const targetDir = path.join(repoRoot, 'published', safeYear);
-            const targetPath = path.join(targetDir, safeFilename);
+            
+            // 💡 全部改用 safePathJoin 確保萬無一失
+            const sourcePath = safePathJoin(repoRoot, 'posts_not_yet_published', safeFilename);
+            const targetDir = safePathJoin(repoRoot, 'published', safeYear);
+            const targetPath = safePathJoin(targetDir, safeFilename);
 
             const relSource = `posts_not_yet_published/${safeFilename}`;
             const relTarget = `published/${safeYear}/${safeFilename}`;
