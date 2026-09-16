@@ -27,33 +27,42 @@ try {
 
     for (const post of posts) {
         if (post.writedate && post.writedate <= today) {
-            const filename = path.basename(post.url || '');
+            // 防禦性處理：確保 url 絕對是字串（若為陣列則取第一個元素）
+            let rawUrl = post.url;
+            if (Array.isArray(rawUrl)) {
+                rawUrl = rawUrl[0] || '';
+            }
+            const urlStr = typeof rawUrl === 'string' ? rawUrl : '';
+            const filename = path.basename(urlStr);
+            
             if (!filename) continue;
 
             // 動態提取年份
-            let year = new Date().getFullYear().toString(); 
+            let year = String(new Date().getFullYear()); 
             let urlMatched = false;
 
-            if (post.url) {
-                const match = post.url.match(/published\/(\d{4})/);
+            if (urlStr) {
+                const match = urlStr.match(/published\/(\d{4})/);
                 if (match && match[1]) {
-                    year = match[1]; // 正確取用擷取群組 (Group 1)
+                    year = String(match[1]);
                     urlMatched = true;
                 }
             }
             if (!urlMatched && post.dayoftravel) {
-                const travelStr = post.dayoftravel.toString();
+                const travelStr = String(post.dayoftravel);
                 if (travelStr.length >= 4) {
                     year = travelStr.substring(0, 4);
                 }
             }
 
+            // 確保路徑變數全部都是字串
+            const safeYear = String(year);
             const sourcePath = path.join(repoRoot, 'posts_not_yet_published', filename);
-            const targetDir = path.join(repoRoot, 'published', year);
+            const targetDir = path.join(repoRoot, 'published', safeYear);
             const targetPath = path.join(targetDir, filename);
 
             const relSource = `posts_not_yet_published/${filename}`;
-            const relTarget = `published/${year}/${filename}`;
+            const relTarget = `published/${safeYear}/${filename}`;
 
             if (fs.existsSync(sourcePath)) {
                 fs.mkdirSync(targetDir, { recursive: true });
@@ -69,7 +78,6 @@ try {
         }
     }
 
-    // 根據掃取結果顯示不同的狀態報告
     if (movedCount > 0) {
         appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ✅ **已成功掃取到文章並完成移動** |\n| **掃取日期** | \`${today}\` |\n| **移動數量** | \`${movedCount}\` 個檔案 |\n| **檔案清單** | ${movedList.map(f => `\`${f}\``).join(', ')} |`);
     } else {
