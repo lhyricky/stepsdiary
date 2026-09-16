@@ -25,19 +25,25 @@ try {
     let movedCount = 0;
     let movedList = [];
 
-    for (const post of posts) {
-        if (post.writedate && post.writedate <= today) {
-            // 防禦性處理：確保 url 絕對是字串（若為陣列則取第一個元素）
+    // 確保 posts 係一個陣列
+    const postsArray = Array.isArray(posts) ? posts : [posts];
+
+    for (const post of postsArray) {
+        if (!post || typeof post !== 'object') continue;
+
+        if (post.writedate && String(post.writedate) <= today) {
+            // 強制防禦：確保 url 絕對是字串
             let rawUrl = post.url;
             if (Array.isArray(rawUrl)) {
                 rawUrl = rawUrl[0] || '';
             }
-            const urlStr = typeof rawUrl === 'string' ? rawUrl : '';
-            const filename = path.basename(urlStr);
+            const urlStr = typeof rawUrl === 'string' ? rawUrl : (rawUrl ? String(rawUrl) : '');
             
-            if (!filename) continue;
+            // 安全取得 filename
+            const filename = urlStr ? path.basename(urlStr) : '';
+            if (!filename || typeof filename !== 'string') continue;
 
-            // 動態提取年份
+            // 動態提取年份（強制轉字串）
             let year = String(new Date().getFullYear()); 
             let urlMatched = false;
 
@@ -49,20 +55,23 @@ try {
                 }
             }
             if (!urlMatched && post.dayoftravel) {
-                const travelStr = String(post.dayoftravel);
+                let travelStr = post.dayoftravel;
+                if (Array.isArray(travelStr)) travelStr = travelStr[0];
+                travelStr = String(travelStr || '');
                 if (travelStr.length >= 4) {
                     year = travelStr.substring(0, 4);
                 }
             }
 
-            // 確保路徑變數全部都是字串
+            // 嚴格確保所有路徑參數全部都是純字串
             const safeYear = String(year);
-            const sourcePath = path.join(repoRoot, 'posts_not_yet_published', filename);
+            const safeFilename = String(filename);
+            const sourcePath = path.join(repoRoot, 'posts_not_yet_published', safeFilename);
             const targetDir = path.join(repoRoot, 'published', safeYear);
-            const targetPath = path.join(targetDir, filename);
+            const targetPath = path.join(targetDir, safeFilename);
 
-            const relSource = `posts_not_yet_published/${filename}`;
-            const relTarget = `published/${safeYear}/${filename}`;
+            const relSource = `posts_not_yet_published/${safeFilename}`;
+            const relTarget = `published/${safeYear}/${safeFilename}`;
 
             if (fs.existsSync(sourcePath)) {
                 fs.mkdirSync(targetDir, { recursive: true });
@@ -84,7 +93,7 @@ try {
         appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ℹ️ **今日沒有文章需要發布** |\n| **掃取日期** | \`${today}\` |\n| **說明** | 掃描 \`posts.json\` 後未發現符合或早于今日 (`+ today +`) 的未發布文章。 |`);
     }
 } catch (err) {
-    const errCode = err.message.split(':')[0] || 'ERR_UNKNOWN';
+    const errCode = err.message ? err.message.split(':')[0] : 'ERR_UNKNOWN';
     appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ❌ **執行發生錯誤** |\n| **錯誤代碼** | \`${errCode}\` |\n| **詳細訊息** | \`${err.message}\` |`);
     process.exit(1);
 }
