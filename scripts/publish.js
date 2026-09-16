@@ -30,14 +30,14 @@ try {
             const filename = path.basename(post.url || '');
             if (!filename) continue;
 
-            // 動態提取年份：預設為當年
+            // 動態提取年份
             let year = new Date().getFullYear().toString(); 
             let urlMatched = false;
 
             if (post.url) {
                 const match = post.url.match(/published\/(\d{4})/);
                 if (match && match[1]) {
-                    year = match[1]; // 修正：正確取用擷取群組 (Group 1)
+                    year = match[1]; // 正確取用擷取群組 (Group 1)
                     urlMatched = true;
                 }
             }
@@ -69,13 +69,14 @@ try {
         }
     }
 
+    // 根據掃取結果顯示不同的狀態報告
     if (movedCount > 0) {
-        appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ✅ **已成功更新位置** |\n| **移動數量** | \`${movedCount}\` 個檔案 |\n| **清單** | ${movedList.map(f => `\`${f}\``).join(', ')} |`);
+        appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ✅ **已成功掃取到文章並完成移動** |\n| **掃取日期** | \`${today}\` |\n| **移動數量** | \`${movedCount}\` 個檔案 |\n| **檔案清單** | ${movedList.map(f => `\`${f}\``).join(', ')} |`);
     } else {
-        appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ℹ️ **是日沒有檔案需要移動** |\n| **日期檢查** | 檢查至 \`${today}\`，無到期未發布文章 |`);
+        appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ℹ️ **今日沒有文章需要發布** |\n| **掃取日期** | \`${today}\` |\n| **說明** | 掃描 \`posts.json\` 後未發現符合或早于今日 (`+ today +`) 的未發布文章。 |`);
     }
 } catch (err) {
     const errCode = err.message.split(':')[0] || 'ERR_UNKNOWN';
-    appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ❌ **錯誤代碼 / 發生例外** |\n| **錯誤代碼** | \`${errCode}\` |\n| **詳細訊息** | \`${err.message}\` |`);
+    appendSummary(`### 🚀 自動發布狀態報告\n| 項目 | 狀態 / 詳情 |\n| :--- | :--- |\n| **狀態** | ❌ **執行發生錯誤** |\n| **錯誤代碼** | \`${errCode}\` |\n| **詳細訊息** | \`${err.message}\` |`);
     process.exit(1);
 }
