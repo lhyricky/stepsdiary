@@ -30,14 +30,14 @@ try {
             const filename = path.basename(post.url || '');
             if (!filename) continue;
 
-            // 動態提取年份：確保 year 一定係 String 字串
+            // 動態提取年份：預設為當年
             let year = new Date().getFullYear().toString(); 
             let urlMatched = false;
 
             if (post.url) {
                 const match = post.url.match(/published\/(\d{4})/);
-                if (match && match) {
-                    year = String(match); // 確保轉為字串
+                if (match && match[1]) {
+                    year = match[1]; // 修正：正確取用擷取群組 (Group 1)
                     urlMatched = true;
                 }
             }

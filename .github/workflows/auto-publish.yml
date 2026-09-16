@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -21,7 +23,7 @@ jobs:
           node-version: '20'
 
       - name: Run publish script
-        run: node scripts/publish.js
+        run: node scripts/publish.js  # 請確保你的 JS 檔案路徑與此一致（例如放在 scripts/ 資料夾下）
 
       - name: Check for git changes & commit
         run: |
@@ -32,5 +34,5 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Auto-publish scheduled posts ($(date +%F))"
-            git push
+            git push origin HEAD
           fi
