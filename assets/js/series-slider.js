@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 強制取得香港時間 (GMT+8) 的 YYYY-MM-DD，不受用戶本地或 Server 時區影響
-    const todayStr = new Intl.DateTimeFormat('en-CA', {
+    // 強制取得香港時間 (GMT+8) 的日期與小時
+    const hkFormatter = new Intl.DateTimeFormat('en-US', {
         timeZone: 'Asia/Hong_Kong',
         year: 'numeric',
         month: '2-digit',
-        day: '2-digit'
-    }).format(new Date());
+        day: '2-digit',
+        hour: 'numeric',
+        hour12: false
+    });
+    const parts = hkFormatter.formatToParts(new Date());
+    const partsObj = {};
+    parts.forEach(p => partsObj[p.type] = p.value);
+    
+    const todayStr = `${partsObj.year}-${partsObj.month}-${partsObj.day}`;
+    const hkHour = parseInt(partsObj.hour, 10);
 
     // 第一步：讀取 series.json
     fetch('/series.json')
@@ -24,10 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(posts => {
                     if (!posts) posts = [];
 
-                    // 過濾掉 writedate 還沒到的文章
+                    // 過濾掉 writedate 還沒到的文章（未夠中午 12 點前，今日的文章不會顯示）
                     const validPosts = posts.filter(p => {
                         if (!p.writedate) return true; // 如果冇寫日期就預設當作有效
-                        return p.writedate <= todayStr;
+                        if (hkHour < 12) {
+                            return p.writedate < todayStr; // 12點前只顯示昨日及之前
+                        }
+                        return p.writedate <= todayStr;  // 12點後顯示今日及之前
                     });
 
                     // 針對 series.json 裡的每一個系列動態生成獨立的區塊
