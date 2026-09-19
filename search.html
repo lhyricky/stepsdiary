@@ -517,7 +517,6 @@
         // 1. 取得網址中的搜尋關鍵字與範圍參數
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get('q') ? urlParams.get('q').trim() : '';
-        // 如果網址有多個 searchScope，URLSearchParams 嘅 get 只會取第一個，但穩陣起見我們自己處理
         const allScopes = urlParams.getAll('searchScope');
         const searchScopeParam = allScopes.length > 0 ? allScopes[allScopes.length - 1] : 'all';
 
@@ -544,10 +543,10 @@
             targetRadio.checked = true;
         }
 
-        // 4. 攔截表單提交，確保只會帶一個正確嘅 searchScope 參數，避免網址重複
+        // 4. 攔截表單提交
         if (searchForm) {
             searchForm.addEventListener('submit', function (e) {
-                e.preventDefault(); // 阻止預設提交，改用 JS 控制跳轉
+                e.preventDefault();
                 const keyword = searchInputBox.value.trim();
                 const selectedScope = document.querySelector('input[name="searchScope"]:checked').value;
                 if (keyword) {
@@ -556,19 +555,19 @@
             });
         }
 
-        // 5. 【即時切換】監聽 Radio 變更：一轉就立刻更新網址並重新搜尋（唔使禁搜尋掣）
+        // 5. 監聽 Radio 變更
         scopeRadios.forEach(radio => {
             radio.addEventListener('change', function () {
                 const keyword = searchInputBox.value.trim();
                 const selectedScope = this.value;
                 if (keyword) {
-                    // 直接重定向到新參數的網址，或者直接呼叫 performSearch()
                     window.location.href = `search.html?q=${encodeURIComponent(keyword)}&searchScope=${selectedScope}`;
                 }
             });
         });
 
         // 清除按鈕互動邏輯
+        searchInputBox.value = '';
         searchInputBox.addEventListener('input', function () {
             if (this.value.trim() !== '') {
                 clearBtn.style.display = 'block';
@@ -599,7 +598,6 @@
                 const item = document.createElement('div');
                 item.className = 'post-item';
 
-                // 處理標籤 (點擊標籤時保持當前的 searchScope)
                 let tagsHtml = '';
                 if (post.tags && Array.isArray(post.tags)) {
                     tagsHtml = post.tags.map(tag => `<a href="search.html?q=${encodeURIComponent(tag)}&searchScope=${searchScopeParam}" class="tag">${tag}</a>`).join('');
@@ -638,18 +636,33 @@
             fetch('posts.json')
                 .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
                 .then(posts => {
-                    // === 強制取得香港時間 (GMT+8) 的 YYYY-MM-DD ===
-                    const today = new Intl.DateTimeFormat('en-CA', {
-                        timeZone: 'Asia/Hong_Kong',
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    }).format(new Date());
+                    // === 取得香港時間 (GMT+8) 的詳細資訊 (包括日期與小時) ===
+                    const nowHK = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+                    const hkYear = nowHK.getFullYear();
+                    const hkMonth = String(nowHK.getMonth() + 1).padStart(2, '0');
+                    const hkDay = String(nowHK.getDate()).padStart(2, '0');
+                    const todayStr = `${hkYear}-${hkMonth}-${hkDay}`;
+                    const hkHour = nowHK.getHours();
 
                     const validPosts = posts.filter(post => {
-                        if (post.writedate && String(post.writedate) > today) {
+                        if (!post.writedate) return true;
+
+                        // 確保 writedate 格式為 YYYY-MM-DD
+                        const postDateStr = String(post.writedate).substring(0, 10);
+
+                        // 如果發布日期大於今天，直接隱藏
+                        if (postDateStr > todayStr) {
                             return false;
                         }
+
+                        // 如果發布日期剛好係「今天」
+                        if (postDateStr === todayStr) {
+                            // 必須要夠中午 12 點 (hkHour >= 12) 先至顯示
+                            if (hkHour < 12) {
+                                return false;
+                            }
+                        }
+
                         return true;
                     });
                     // ===============================================
@@ -658,13 +671,10 @@
                     let matchedPosts = [];
 
                     if (searchScopeParam === 'title') {
-                        // === 絕對只搜尋標題：完全不撈 description、content、tags ===
                         matchedPosts = validPosts.filter(post => {
                             return post.title && post.title.toLowerCase().includes(queryLower);
                         });
-
                     } else {
-                        // === 全文搜尋模式 (標題、描述、內容、標籤) ===
                         const exactMatch = validPosts.filter(post => {
                             const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
                             const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
