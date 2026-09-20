@@ -37,16 +37,14 @@
         .search-bar-container {
             display: flex;
             justify-content: center;
-            margin: 20px 0 25px 0;
+            margin: 20px 0 15px 0;
             width: 100%;
         }
 
-        /* 讓搜尋輸入框變成一個相對定位的容器，用來擺放清除按鈕 (X) */
         .search-input-wrapper {
             position: relative;
             flex: 2;
             min-width: 240px;
-            /* 確保輸入框有最小寬度 */
             display: flex;
             align-items: center;
         }
@@ -65,7 +63,6 @@
         .search-input {
             width: 100%;
             padding: 12px 35px 12px 18px;
-            /* 右側留出位置畀交叉按鈕 */
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 1em;
@@ -98,24 +95,20 @@
             opacity: 0.8;
         }
 
-        /* 讓按鈕內部使用 Flexbox，確保圖片同文字水平置中、間距適中 */
         .search-button,
         .home-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            /* 圖標同文字之間的距離 */
         }
 
-        /* 控制按鈕入面圖片的大小 */
         .btn-icon {
             width: 25px;
             height: 25px;
             object-fit: contain;
         }
 
-        /* 交叉清除按鈕樣式 */
         .clear-btn {
             position: absolute;
             right: 12px;
@@ -132,28 +125,23 @@
             color: #333;
         }
 
-        /* 下拉選單樣式：黃色底、白色字 */
         .sort-dropdown {
             background-color: #FFD700;
             color: white;
             border: none;
             padding: 12px 30px 12px 20px;
-            /* 增加右側 padding，避免箭咀太貼邊 */
             border-radius: 6px;
             font-size: 1em;
             cursor: pointer;
             outline: none;
             transition: opacity 0.2s;
-
             flex-shrink: 0;
             appearance: none;
-            /* 移除瀏覽器預設樣式以便自訂箭咀位置 */
             -webkit-appearance: none;
             -moz-appearance: none;
             background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
             background-repeat: no-repeat;
             background-position: right 10px center;
-            /* 調整箭咀位置，唔會貼住右邊 */
         }
 
         .sort-dropdown option {
@@ -163,6 +151,40 @@
 
         .sort-dropdown:hover {
             opacity: 0.8;
+        }
+
+        /* 系列 Tickbox 區域樣式 */
+        .series-filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .series-checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #f7f9fa;
+            border: 1px solid #e1e8ed;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .series-checkbox-label:hover {
+            background-color: #eef2f5;
+        }
+
+        .series-checkbox-label input {
+            cursor: pointer;
         }
 
         .post-count {
@@ -209,9 +231,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            /* 文字同屋仔之間的距離 */
             flex-direction: row;
-            /* 強制水平由左至右 */
         }
 
         .home-button:hover {
@@ -285,6 +305,19 @@
             color: #95a5a6;
             font-size: 0.95em;
             margin-bottom: 12px;
+        }
+
+        /* 嚴格限制最多 3 行，超出部分用 ... 省略 */
+        .post-snippet {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .post-tags {
@@ -367,7 +400,6 @@
             gap: 5px;
         }
 
-        /* 確保文章卡片內的文字與排版在手機完美縮放 */
         .post-item {
             width: 100%;
             box-sizing: border-box;
@@ -375,11 +407,9 @@
 
         .post-text-content {
             word-break: break-word;
-            /* 防止長英文字串或網址撐闊版面 */
             overflow: hidden;
         }
 
-        /* 針對細螢幕（如手機）進一步優化字體與間距大小 */
         @media (max-width: 675px) {
             h1 {
                 font-size: 1.5em;
@@ -392,7 +422,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
-                /* 增加所有子元素之間的垂直距離 */
                 padding: 0 10px;
                 width: 100%;
                 box-sizing: border-box;
@@ -409,7 +438,6 @@
                 margin-bottom: 8px;
             }
 
-            /* 4. 搜尋輸入框容器與按鈕寬度調整 */
             .search-input-wrapper {
                 width: 100%;
                 min-width: 100%;
@@ -420,14 +448,12 @@
                 padding: 14px 35px 14px 15px;
             }
 
-            /* 藍色搜尋按鈕回復原本長度，並在窄屏時置中跌落下一行 */
             .search-button {
                 width: auto;
                 padding: 12px 24px;
                 align-self: center;
             }
 
-            /* 6. 調整 Radio 按鈕（只搜尋標題 / 全文搜尋）的行距與排版 */
             .search-options {
                 display: flex;
                 justify-content: center;
@@ -436,16 +462,13 @@
                 width: 100%;
             }
 
-            /* 7. 黃色排序下拉選單改為 100% 寬度，方便手機點選 */
             .sort-dropdown {
                 width: fit-content;
                 max-width: 100%;
                 display: block;
                 margin: 0 auto;
-                /* 如果你想佢喺手機置中顯示 */
             }
 
-            /* 8. 文章總數與黃色分隔線間距 */
             .post-count {
                 margin-top: 10px;
                 margin-bottom: 15px;
@@ -459,13 +482,12 @@
             .home-button {
                 box-sizing: border-box;
                 justify-content: center !important;
-                /* 強制文字同 icon 置中貼近 */
             }
         }
     </style>
     <!-- Google Adsense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7804659604247534"
-     crossorigin="anonymous"></script>
+    <script async src="https://page2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7804659604247534"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -495,10 +517,15 @@
                         <label><input type="radio" name="searchScope" value="title"> 只搜尋標題</label>
                     </div>
                     <select id="sortSelect" class="sort-dropdown">
-                        <option value="newest">按旅遊日期排列（最新）</option>
-                        <option value="oldest">按旅遊日期排列（最舊）</option>
+                        <option value="newest">按發佈日期排列（最新）</option>
+                        <option value="oldest">按發佈日期排列（最舊）</option>
                     </select>
                 </form>
+            </div>
+
+            <!-- 系列勾選方塊動態載入區 -->
+            <div id="seriesFilterContainer" class="series-filter-container">
+                <!-- 動態生成「全部」及各個系列 checkbox -->
             </div>
 
             <div id="postCount" class="post-count"></div>
@@ -517,13 +544,7 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // 1. 取得網址中的搜尋關鍵字與範圍參數
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchQuery = urlParams.get('q') ? urlParams.get('q').trim() : '';
-        const allScopes = urlParams.getAll('searchScope');
-        const searchScopeParam = allScopes.length > 0 ? allScopes[allScopes.length - 1] : 'all';
-
-        // 2. 獲取 DOM 元素
+        // 1. 獲取 DOM 元素
         const pageTitleEl = document.getElementById('pageTitle');
         const searchInputBox = document.getElementById('searchInputBox');
         const clearBtn = document.getElementById('clearBtn');
@@ -532,51 +553,181 @@
         const sortSelect = document.getElementById('sortSelect');
         const searchForm = document.querySelector('.search-form');
         const scopeRadios = document.querySelectorAll('input[name="searchScope"]');
+        const seriesFilterContainer = document.getElementById('seriesFilterContainer');
 
-        // 3. 初始化輸入框與對應的 Radio 按鈕狀態
-        if (searchInputBox) {
-            searchInputBox.value = searchQuery;
-            if (searchQuery) {
-                clearBtn.style.display = 'block';
+        // 快取載入過後的 posts.json
+        let cachedPosts = null;
+        let availableSeries = []; // 儲存所有不重複的系列名稱
+
+        // 從網址讀取當前參數
+        function getParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q') ? urlParams.get('q').trim() : '';
+            const allScopes = urlParams.getAll('searchScope');
+            const scope = allScopes.length > 0 ? allScopes[allScopes.length - 1] : 'all';
+
+            // 讀取被勾選的系列
+            const selectedSeries = urlParams.getAll('series');
+            return { query, scope, selectedSeries };
+        }
+
+        // 初始化 UI 狀態
+        function syncUIFromURL() {
+            const { query, scope } = getParameters();
+            if (searchInputBox && searchInputBox.value !== query) {
+                searchInputBox.value = query;
+                clearBtn.style.display = query ? 'block' : 'none';
+            }
+            const targetRadio = document.querySelector(`input[name="searchScope"][value="${scope}"]`);
+            if (targetRadio) {
+                targetRadio.checked = true;
             }
         }
 
-        const targetRadio = document.querySelector(`input[name="searchScope"][value="${searchScopeParam}"]`);
-        if (targetRadio) {
-            targetRadio.checked = true;
+
+        // 動態生成系列勾選框
+        function renderSeriesCheckboxes(posts) {
+            if (!seriesFilterContainer) return;
+
+            // 提取所有不重複的系列
+            const seriesSet = new Set();
+            posts.forEach(post => {
+                if (post.series) {
+                    seriesSet.add(post.series);
+                }
+            });
+            availableSeries = Array.from(seriesSet);
+
+            if (availableSeries.length === 0) {
+                seriesFilterContainer.style.display = 'none';
+                return;
+            } else {
+                seriesFilterContainer.style.display = 'flex'; // 確保有資料時會顯示
+            }
+
+            const { selectedSeries } = getParameters();
+            const isAllChecked = selectedSeries.length === 0 || selectedSeries.includes('all');
+
+            let html = `
+        <label class="series-checkbox-label">
+            <input type="checkbox" id="seriesAll" value="all" ${isAllChecked ? 'checked' : ''}> 全部
+        </label>
+    `;
+
+            availableSeries.forEach(seriesName => {
+                const isChecked = !isAllChecked && selectedSeries.includes(seriesName);
+                html += `
+            <label class="series-checkbox-label">
+                <input type="checkbox" class="series-item-checkbox" value="${escapeHtml(seriesName)}" ${isChecked ? 'checked' : ''}> ${escapeHtml(seriesName)}
+            </label>
+        `;
+            });
+
+            seriesFilterContainer.innerHTML = html;
+            bindSeriesCheckboxEvents();
         }
 
-        // 4. 攔截表單提交
+        // 綁定系列 Checkbox 的互動事件（實現無縫不重整切換）
+        function bindSeriesCheckboxEvents() {
+            const allCheckbox = document.getElementById('seriesAll');
+            const itemCheckboxes = document.querySelectorAll('.series-item-checkbox');
+
+            if (allCheckbox) {
+                allCheckbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        // 如果選了「全部」，則取消其他所有系列
+                        itemCheckboxes.forEach(cb => cb.checked = false);
+                    }
+                    updateSeriesURLAndSearch();
+                });
+            }
+
+            itemCheckboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    if (this.checked) {
+                        // 如果勾選了某個系列，自動取消「全部」
+                        if (allCheckbox) allCheckbox.checked = false;
+                    } else {
+                        // 如果全部系列都取消咗，自動勾回「全部」
+                        const anyChecked = Array.from(itemCheckboxes).some(item => item.checked);
+                        if (!anyChecked && allCheckbox) {
+                            allCheckbox.checked = true;
+                        }
+                    }
+                    updateSeriesURLAndSearch();
+                });
+            });
+        }
+
+        // 收集當前勾選的系列並更新網址與畫面
+        function updateSeriesURLAndSearch() {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.delete('series'); // 清除舊嘅 series 參數
+
+            const allCheckbox = document.getElementById('seriesAll');
+            const itemCheckboxes = document.querySelectorAll('.series-item-checkbox');
+
+            let isAllSelected = !allCheckbox || allCheckbox.checked;
+
+            // 檢查係咪全部個別系列都手動被勾選咗
+            const checkedItems = Array.from(itemCheckboxes).filter(cb => cb.checked);
+            if (checkedItems.length === 0) {
+                isAllSelected = true;
+                if (allCheckbox) allCheckbox.checked = true;
+            }
+
+            if (!isAllSelected) {
+                checkedItems.forEach(cb => {
+                    urlParams.append('series', cb.value);
+                });
+            } else {
+                urlParams.append('series', 'all');
+            }
+
+            const newUrl = `search.html?${urlParams.toString()}`;
+            window.history.replaceState({}, '', newUrl);
+            performSearch();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // 表單提交處理
         if (searchForm) {
             searchForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const keyword = searchInputBox.value.trim();
                 const selectedScope = document.querySelector('input[name="searchScope"]:checked').value;
                 if (keyword) {
-                    window.location.href = `search.html?q=${encodeURIComponent(keyword)}&searchScope=${selectedScope}`;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('q', keyword);
+                    urlParams.set('searchScope', selectedScope);
+                    const newUrl = `search.html?${urlParams.toString()}`;
+                    window.history.pushState({}, '', newUrl);
+                    performSearch();
                 }
             });
         }
 
-        // 5. 監聽 Radio 變更
+        // 監聽 Radio 變更（全文 / 標題）
         scopeRadios.forEach(radio => {
             radio.addEventListener('change', function () {
                 const keyword = searchInputBox.value.trim();
                 const selectedScope = this.value;
                 if (keyword) {
-                    window.location.href = `search.html?q=${encodeURIComponent(keyword)}&searchScope=${selectedScope}`;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('searchScope', selectedScope);
+                    const newUrl = `search.html?${urlParams.toString()}`;
+                    window.history.replaceState({}, '', newUrl);
+                    performSearch();
                 }
             });
         });
 
-        // 清除按鈕互動邏輯
-        searchInputBox.value = '';
+        // 清除按鈕
         searchInputBox.addEventListener('input', function () {
-            if (this.value.trim() !== '') {
-                clearBtn.style.display = 'block';
-            } else {
-                clearBtn.style.display = 'none';
-            }
+            clearBtn.style.display = this.value.trim() !== '' ? 'block' : 'none';
         });
 
         clearBtn.addEventListener('click', function () {
@@ -585,8 +736,35 @@
             searchInputBox.focus();
         });
 
-        // 渲染文章列表到 HTML 的輔助函數
-        function renderPosts(posts, noResultMsg) {
+        // 智能摘要與高亮
+        function generateSnippet(post, query) {
+            let text = post.content || post.description || '';
+            text = text.replace(/<[^>]*>?/gm, '');
+
+            if (!query) return text;
+
+            const lowerText = text.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+            const index = lowerText.indexOf(lowerQuery);
+
+            let snippet = text;
+            if (index !== -1) {
+                const padding = 70;
+                let start = Math.max(0, index - padding);
+                let end = Math.min(text.length, index + lowerQuery.length + padding);
+
+                snippet = text.substring(start, end);
+                if (start > 0) snippet = '...' + snippet;
+                if (end < text.length) snippet = snippet + '...';
+            }
+
+            const escapedQuery = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+            return snippet.replace(regex, '<span class="highlight-keyword">$1</span>');
+        }
+
+        // 渲染結果
+        function renderPosts(posts, noResultMsg, searchQuery, searchScopeParam) {
             postListEl.innerHTML = '';
 
             if (!posts || posts.length === 0) {
@@ -606,6 +784,8 @@
                     tagsHtml = post.tags.map(tag => `<a href="search.html?q=${encodeURIComponent(tag)}&searchScope=${searchScopeParam}" class="tag">${tag}</a>`).join('');
                 }
 
+                const snippetHtml = generateSnippet(post, searchQuery);
+
                 item.innerHTML = `
                     <div class="post-picture">
                         <a href="${post.url}">
@@ -615,8 +795,8 @@
                     <div class="post-text-content">
                         <div>
                             <h3><a href="${post.url}">${post.title}</a></h3>
-                            <div class="post-meta">旅遊日期：${post.dayoftravel ? String(post.dayoftravel).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3') : '未提供'} | 發布日期：${post.writedate || '未提供'}</div>
-                            <p>${post.description || ''}</p>
+                            <div class="post-meta">旅遊日期：${post.dayoftravel ? String(post.dayoftravel).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3') : '未提供'} | 發佈日期：${post.writedate || '未提供'}</div>
+                            <div class="post-snippet">${snippetHtml}</div>
                         </div>
                         <div class="post-tags">${tagsHtml}</div>
                     </div>
@@ -625,8 +805,13 @@
             });
         }
 
-        // 執行搜尋與排序的核心邏輯
-        function performSearch() {
+        // 核心搜尋與過濾邏輯
+        function processAndRenderPosts(posts) {
+            syncUIFromURL();
+            renderSeriesCheckboxes(posts);
+
+            const { query: searchQuery, scope: searchScopeParam, selectedSeries } = getParameters();
+
             if (!searchQuery) {
                 pageTitleEl.textContent = '請輸入搜尋關鍵字';
                 postCountEl.textContent = '';
@@ -636,102 +821,102 @@
 
             pageTitleEl.innerHTML = `含有關鍵字： <span class="highlight-keyword">${searchQuery}</span> 的文章`;
 
-            fetch('posts.json')
-                .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
-                .then(posts => {
-                    // === 取得香港時間 (GMT+8) 的詳細資訊 (包括日期與小時) ===
-                    const nowHK = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
-                    const hkYear = nowHK.getFullYear();
-                    const hkMonth = String(nowHK.getMonth() + 1).padStart(2, '0');
-                    const hkDay = String(nowHK.getDate()).padStart(2, '0');
-                    const todayStr = `${hkYear}-${hkMonth}-${hkDay}`;
-                    const hkHour = nowHK.getHours();
+            const nowHK = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+            const hkYear = nowHK.getFullYear();
+            const hkMonth = String(nowHK.getMonth() + 1).padStart(2, '0');
+            const hkDay = String(nowHK.getDate()).padStart(2, '0');
+            const todayStr = `${hkYear}-${hkMonth}-${hkDay}`;
+            const hkHour = nowHK.getHours();
 
-                    const validPosts = posts.filter(post => {
-                        if (!post.writedate) return true;
+            // 1. 基本發布日期時間篩選
+            const validPosts = posts.filter(post => {
+                if (!post.writedate) return true;
+                const postDateStr = String(post.writedate).substring(0, 10);
+                if (postDateStr > todayStr) return false;
+                if (postDateStr === todayStr && hkHour < 12) return false;
+                return true;
+            });
 
-                        // 確保 writedate 格式為 YYYY-MM-DD
-                        const postDateStr = String(post.writedate).substring(0, 10);
+            // 2. 系列（Series）篩選
+            const filteredBySeries = validPosts.filter(post => {
+                if (selectedSeries.length === 0 || selectedSeries.includes('all')) {
+                    return true;
+                }
+                return post.series && selectedSeries.includes(post.series);
+            });
 
-                        // 如果發布日期大於今天，直接隱藏
-                        if (postDateStr > todayStr) {
-                            return false;
-                        }
+            const queryLower = searchQuery.toLowerCase();
+            let matchedPosts = [];
 
-                        // 如果發布日期剛好係「今天」
-                        if (postDateStr === todayStr) {
-                            // 必須要夠中午 12 點 (hkHour >= 12) 先至顯示
-                            if (hkHour < 12) {
-                                return false;
-                            }
-                        }
-
-                        return true;
-                    });
-                    // ===============================================
-
-                    const queryLower = searchQuery.toLowerCase();
-                    let matchedPosts = [];
-
-                    if (searchScopeParam === 'title') {
-                        matchedPosts = validPosts.filter(post => {
-                            return post.title && post.title.toLowerCase().includes(queryLower);
-                        });
-                    } else {
-                        const exactMatch = validPosts.filter(post => {
-                            const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
-                            const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
-                            const contentMatch = post.content && post.content.toLowerCase().includes(queryLower);
-                            const tagMatch = post.tags && post.tags.some(t => typeof t === 'string' && t.toLowerCase().includes(queryLower));
-                            return titleMatch || descMatch || contentMatch || tagMatch;
-                        });
-
-                        const options = {
-                            keys: ['title', 'tags', 'description', 'content'],
-                            threshold: 0.5,
-                            includeScore: true
-                        };
-                        const fuse = new Fuse(validPosts, options);
-                        const fuseResult = fuse.search(searchQuery);
-
-                        const combinedMap = new Map();
-                        [...exactMatch, ...fuseResult.map(r => r.item)].forEach(post => {
-                            if (post.url && !combinedMap.has(post.url)) {
-                                combinedMap.set(post.url, post);
-                            }
-                        });
-                        matchedPosts = Array.from(combinedMap.values());
-                    }
-
-                    // 排序與渲染函數
-                    function sortAndRender() {
-                        const sortType = sortSelect ? sortSelect.value : 'newest';
-
-                        matchedPosts.sort((a, b) => {
-                            const dateA = Number(a.dayoftravel) || 0;
-                            const dateB = Number(b.dayoftravel) || 0;
-                            if (sortType === 'oldest') {
-                                return dateA - dateB;
-                            } else {
-                                return dateB - dateA;
-                            }
-                        });
-
-                        renderPosts(matchedPosts, `找不到與「${searchQuery}」相關的文章`);
-                    }
-
-                    sortAndRender();
-                    if (sortSelect) {
-                        sortSelect.onchange = sortAndRender;
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    postListEl.innerHTML = '<div class="no-result">載入文章資料失敗，請稍後再試</div>';
+            if (searchScopeParam === 'title') {
+                matchedPosts = filteredBySeries.filter(post => {
+                    return post.title && post.title.toLowerCase().includes(queryLower);
                 });
+            } else {
+                const exactMatch = filteredBySeries.filter(post => {
+                    const titleMatch = post.title && post.title.toLowerCase().includes(queryLower);
+                    const descMatch = post.description && post.description.toLowerCase().includes(queryLower);
+                    const contentMatch = post.content && post.content.toLowerCase().includes(queryLower);
+                    const tagMatch = post.tags && post.tags.some(t => typeof t === 'string' && t.toLowerCase().includes(queryLower));
+                    return titleMatch || descMatch || contentMatch || tagMatch;
+                });
+
+                const options = {
+                    keys: ['title', 'tags', 'description', 'content'],
+                    threshold: 0.5,
+                    includeScore: true
+                };
+                const fuse = new Fuse(filteredBySeries, options);
+                const fuseResult = fuse.search(searchQuery);
+
+                const combinedMap = new Map();
+                [...exactMatch, ...fuseResult.map(r => r.item)].forEach(post => {
+                    if (post.url && !combinedMap.has(post.url)) {
+                        combinedMap.set(post.url, post);
+                    }
+                });
+                matchedPosts = Array.from(combinedMap.values());
+            }
+
+            // 3. 排序改為依據發佈日期 (writedate)
+            const sortType = sortSelect ? sortSelect.value : 'newest';
+            matchedPosts.sort((a, b) => {
+                const dateAStr = a.writedate ? String(a.writedate).replaceAll('-', '').substring(0, 8) : '0';
+                const dateBStr = b.writedate ? String(b.writedate).replaceAll('-', '').substring(0, 8) : '0';
+                const dateA = Number(dateAStr) || 0;
+                const dateB = Number(dateBStr) || 0;
+
+                if (sortType === 'oldest') {
+                    return dateA - dateB; // 最舊排前面
+                } else {
+                    return dateB - dateA; // 最新排前面 (預設)
+                }
+            });
+
+            renderPosts(matchedPosts, `找不到與「${searchQuery}」相關的文章`, searchQuery, searchScopeParam);
         }
 
-        // 頁面載入完成後自動執行搜尋
+        function performSearch() {
+            if (cachedPosts) {
+                processAndRenderPosts(cachedPosts);
+            } else {
+                fetch('posts.json')
+                    .then(res => { if (!res.ok) throw new Error('載入失敗'); return res.json(); })
+                    .then(posts => {
+                        cachedPosts = posts;
+                        processAndRenderPosts(cachedPosts);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        postListEl.innerHTML = '<div class="no-result">載入文章資料失敗，請稍後再試</div>';
+                    });
+            }
+        }
+
+        if (sortSelect) {
+            sortSelect.onchange = performSearch;
+        }
+
         document.addEventListener('DOMContentLoaded', performSearch);
     </script>
 

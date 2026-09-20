@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const parts = hkFormatter.formatToParts(new Date());
     const partsObj = {};
     parts.forEach(p => partsObj[p.type] = p.value);
-    
+
     const todayStr = `${partsObj.year}-${partsObj.month}-${partsObj.day}`;
     const hkHour = parseInt(partsObj.hour, 10);
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     // 計算全域文章順序編號（從 1 開始）
                                     const itemNumber = start + i + 1;
                                     const postTitle = post.title || '';
-                                    
+
                                     return `
                                         <a href="${post.url || '#'}" class="series-card">
                                             <img src="${imgSrc}" alt="${postTitle}" loading="lazy">
@@ -142,23 +142,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             const prevBtns = section.querySelectorAll('.series-prev-btn');
                             const nextBtns = section.querySelectorAll('.series-next-btn');
+                            const maxIndex = Math.ceil(totalItems / itemsPerPage) - 1;
 
                             prevBtns.forEach(btn => {
                                 btn.addEventListener('click', () => {
                                     if (currentIndex > 0) {
                                         currentIndex--;
-                                        renderSlider(true);
+                                    } else {
+                                        currentIndex = maxIndex; // 已經係第一頁，禁上一頁會跳去最尾
                                     }
+                                    renderSlider(true);
                                 });
                             });
 
                             nextBtns.forEach(btn => {
                                 btn.addEventListener('click', () => {
-                                    const maxIndex = Math.ceil(totalItems / itemsPerPage) - 1;
                                     if (currentIndex < maxIndex) {
                                         currentIndex++;
-                                        renderSlider(true);
+                                    } else {
+                                        currentIndex = 0; // 已經係最尾頁，禁下一頁會循環返去最頭
                                     }
+                                    renderSlider(true);
                                 });
                             });
                         }
