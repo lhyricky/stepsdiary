@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p class="preview">${description}</p>
                             <div class="tags">${tagsHTML}</div>
                         </div>
-                        <img class="article-thumb" src="${picture}" alt="${title}" loading="lazy">
+                        <img class="article-thumb" src="${picture}" alt="${title}">
                     </div>
                 `;
 

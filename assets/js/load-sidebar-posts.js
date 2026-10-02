@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const postHTML = `
                     <a href="${url}" class="sidebar-post-item">
-                        <img src="${picture}" alt="${title}" class="sidebar-post-thumb" loading="lazy">
+                        <img src="${picture}" alt="${title}" class="sidebar-post-thumb">
                         <div class="sidebar-post-info">
                             <h4 class="sidebar-post-title">${title}</h4>
                             <p class="sidebar-post-date">發佈於 ${writedate}</p>

@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 img.src = pictureSrc;
                 img.alt = post.title || "";
-                img.loading = "lazy";
+                
 
                 const title = document.createElement("div");
                 title.className = "title-overlay";

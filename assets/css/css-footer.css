@@ -25,3 +25,25 @@
     margin: 0;
     white-space: normal;
 }
+
+/* Footer 政策連結樣式 */
+.footer-links {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #4abded; /* 滑鼠懸停時變成網站的主題藍色 */
+    text-decoration: underline;
+}
+
+.footer-links .separator {
+    color: #cccccc;
+    margin: 0 10px;
+}
