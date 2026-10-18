@@ -114,25 +114,31 @@
         /* 1. 所有圖片共用的基本樣式 */
         .image-section img {
             display: block;
-            width: 100%;
-            max-width: 600px;
+            max-width: 100%;
+            max-height: 400px;  /* 核心：鎖死任何情況下的最大高度 */
+            width: auto;        /* 寬度隨高度自動等比縮放 */
+            height: auto;
             object-fit: contain;
             object-position: center;
-            border-radius: 20px;
-            background-color: #f6f6f6;
+            /*border-radius: 20px;*/
+            /*background-color: #f6f6f6;*/
             margin: 0 auto;
         }
 
-        /* 2. 桌面版：橫度相統一比例設定 (預設 16:9) */
+        
+        /* 2. 桌面版：只針對特定橫度相維持 16:9 或 4:3 比例（如果需要嘅話） */
+        @media (min-width: 1025px) {
+            .image-section .ratio-169 {
+                aspect-ratio: 16 / 9;
+                width: 100%;     /* 比例相填滿寬度 */
+                height: auto;
+            }
 
-
-        /* 3. 橫度相比例微調 class */
-        .image-section .ratio-169 {
-            aspect-ratio: 16 / 9;
-        }
-
-        .image-section .ratio-43 {
-            aspect-ratio: 4 / 3;
+            .image-section .ratio-43 {
+                aspect-ratio: 4 / 3;
+                width: 100%;
+                height: auto;
+            }
         }
 
         /* 4. 桌面版：直度相高度限制 */
@@ -504,11 +510,12 @@
             background-color: #c3e5f4;
         }
 
-        .striped-table tbody .row-odd {
+        /* 自動幫每張表格的單數列設定為白底，雙數列設定為藍底 */
+        .striped-table tbody tr:nth-child(odd) {
             background-color: white;
         }
 
-        .striped-table tbody .row-even {
+        .striped-table tbody tr:nth-child(even) {
             background-color: #c3e5f4;
         }
 
@@ -554,7 +561,7 @@
             /* 防止 flex 子元素溢出 */
             background: #fff;
 
-            
+
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
@@ -784,5 +791,37 @@
 
             .article-body-content {
                 margin: 20px;
+            }
+        }
+
+        /* 雙欄表格容器：桌面版左右並排，各佔一半空間 */
+        .split-table-wrapper {
+            display: flex;
+            gap: 30px;
+            /* 左右兩張表格之間的間距 */
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1100px;
+            /* 限制最大寬度，避免過度拉開 */
+            margin: 30px auto;
+            /* 置中並上下留白 */
+        }
+
+        /* 讓內部每張表格平均瓜分容器寬度，並取消原本單獨時的寬度或置中限制 */
+        .split-table-wrapper .striped-table {
+            flex: 1;
+            /* 左右等寬 */
+            width: 100% !important;
+            margin: 0 !important;
+            /* 清除原本的 auto 置中外距 */
+        }
+
+        /* 響應式設計：當螢幕小於 1024px（平板或手機）時，自動改為上下單欄疊排，避免擠壓 */
+        @media (max-width: 1024px) {
+            .split-table-wrapper {
+                flex-direction: column;
+                gap: 20px;
+
+                box-sizing: border-box;
             }
         }

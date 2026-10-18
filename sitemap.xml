@@ -4,94 +4,165 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
 <url>
   <loc>https://stepsdiary.cc/</loc>
-  <lastmod>2025-12-04T08:26:46+00:00</lastmod>
+  <lastmod>2026-10-18T12:07:16+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/About.html</loc>
-  <lastmod>2025-11-26T04:06:41+00:00</lastmod>
+  <lastmod>2026-10-18T12:07:16+00:00</lastmod>
   <priority>0.30</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250803-kyoto-hamburger-steak-and-inari-shrime.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260804-0805-fuji-goko-1day-trip.html</loc>
+  <lastmod>2026-12-26T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250804-uji-greentea-parfait-and-nintendo-museum.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260803-flight-from-sapporo-to-tokyo.html</loc>
+  <lastmod>2026-12-19T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250805-osaka-expo25-visit.html</loc>
-  <lastmod>2025-12-04T08:26:47+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260802-lake-toya-and-cape-chikyu.html</loc>
+  <lastmod>2026-12-12T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250806-kyoto-railway-museum-and-kinkakuji.html</loc>
-  <lastmod>2025-12-04T08:39:57+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260801-hakodate-1day-visit.html</loc>
+  <lastmod>2026-12-05T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250802-himeji-castle-and-disaster-prevention.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260731-asahiyama-zoo-and-muroran.html</loc>
+  <lastmod>2026-11-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250807-mount-rokko-walk-around.html</loc>
-  <lastmod>2025-12-04T08:26:44+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260730-biei-1day-trip-and-fireworks.html</loc>
+  <lastmod>2026-11-21T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://stepsdiary.cc/published/2025/Journey20250731-0801-flight-from-iwate-to-osaka.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260729-furano-train-and-parade.html</loc>
+  <lastmod>2026-11-14T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2026/Journey20260727-0728-sapporo-otaru-asahikawa.html</loc>
+  <lastmod>2026-11-07T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240726-0727-lake-suwa-uma-sashimi.html</loc>
+  <lastmod>2026-10-31T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240725-wasabi-matsumoto-castle-and-onsen.html</loc>
+  <lastmod>2026-10-24T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240724-kamikochi-hiking.html</loc>
+  <lastmod>2026-10-17T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240723-national-museum-and-train-to-nagano.html</loc>
+  <lastmod>2026-10-10T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240722-railway-museum-tokyo-tower-and-227-concert.html</loc>
+  <lastmod>2026-10-03T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240721-oarai-aquarium-and-girls-und-panzer-pilgrimage.html</loc>
+  <lastmod>2026-09-26T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2024/Journey20240719-0720-tokyo-citywalk-and-j-league.html</loc>
+  <lastmod>2026-09-19T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250808-lastday-in-japan-with-curry.html</loc>
-  <lastmod>2025-12-04T08:26:45+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250807-mount-rokko-walk-around.html</loc>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250806-kyoto-railway-museum-and-kinkakuji.html</loc>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250805-osaka-expo25-visit.html</loc>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250804-uji-greentea-parfait-and-nintendo-museum.html</loc>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250803-kyoto-hamburger-steak-and-inari-shrime.html</loc>
+  <lastmod>2026-10-02T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250802-himeji-castle-and-disaster-prevention.html</loc>
+  <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stepsdiary.cc/published/2025/Journey20250731-0801-flight-from-iwate-to-osaka.html</loc>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250730-iwate-koiwai-farm-and-old-red-brick-bank.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250729-matsushima-and-oyster.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250728-yonezawa-1day-history-trip.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250727-sendai-citywalk.html</loc>
-  <lastmod>2025-11-26T04:06:43+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250726-miyagi-wide-area-1day-trip.html</loc>
-  <lastmod>2025-11-26T04:06:42+00:00</lastmod>
+  <lastmod>2026-09-20T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250725-fukushima-nuclear-area-visit.html</loc>
-  <lastmod>2025-11-26T04:06:42+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://stepsdiary.cc/published/2025/Journey20250724-first-day-in-tokyo-imperial-palace-visit.html</loc>
-  <lastmod>2025-11-26T04:06:42+00:00</lastmod>
+  <lastmod>2026-08-28T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-
 
 </urlset>
